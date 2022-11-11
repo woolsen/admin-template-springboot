@@ -39,7 +39,9 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import static springfox.documentation.schema.AlternateTypeRules.newRule;
 
@@ -132,7 +134,11 @@ class SwaggerDataConfig {
 
             @Override
             public List<AlternateTypeRule> rules() {
-                return CollUtil.newArrayList(newRule(resolver.resolve(Pageable.class), resolver.resolve(Page.class)));
+                return CollUtil.newArrayList(
+                        newRule(resolver.resolve(Pageable.class), resolver.resolve(Page.class)),
+                        newRule(resolver.resolve(Timestamp.class), resolver.resolve(Date.class)),
+                        newRule(resolver.resolve(List.class, Timestamp.class), resolver.resolve(List.class, Date.class))
+                );
             }
         };
     }
