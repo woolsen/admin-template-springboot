@@ -15,9 +15,9 @@
 */
 package ${package}.service.mapstruct;
 
-import cn.woolsen.BaseMapper;
+import cn.woolsen.base.BaseMapper;
 import ${package}.domain.${className};
-import ${package}.service.dto.${className}Dto;
+import ${package}.domain.dto.${className}Dto;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 

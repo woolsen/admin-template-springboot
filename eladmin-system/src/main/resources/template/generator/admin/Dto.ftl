@@ -13,7 +13,7 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package ${package}.service.dto;
+package ${package}.domain.dto;
 
 import lombok.Data;
 <#if hasTimestamp>

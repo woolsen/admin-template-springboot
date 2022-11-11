@@ -13,7 +13,7 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package ${package}.service.dto;
+package ${package}.domain.dto;
 
 import lombok.Data;
 <#if queryHasTimestamp>
@@ -26,7 +26,7 @@ import java.math.BigDecimal;
 import java.util.List;
 </#if>
 <#if queryColumns??>
-import annotation.cn.woolsen.Query;
+import cn.woolsen.annotation.Query;
 </#if>
 
 /**

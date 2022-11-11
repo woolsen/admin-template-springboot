@@ -60,7 +60,6 @@ public class GenUtil {
         templateNames.add("Controller");
         templateNames.add("QueryCriteria");
         templateNames.add("Service");
-        templateNames.add("ServiceImpl");
         templateNames.add("Repository");
         return templateNames;
     }
@@ -357,23 +356,19 @@ public class GenUtil {
         }
 
         if ("Controller".equals(templateName)) {
-            return packagePath + "rest" + File.separator + className + "Controller.java";
+            return packagePath + "controller" + File.separator + className + "Controller.java";
         }
 
         if ("Service".equals(templateName)) {
             return packagePath + "service" + File.separator + className + "Service.java";
         }
 
-        if ("ServiceImpl".equals(templateName)) {
-            return packagePath + "service" + File.separator + "impl" + File.separator + className + "ServiceImpl.java";
-        }
-
         if ("Dto".equals(templateName)) {
-            return packagePath + "service" + File.separator + "dto" + File.separator + className + "Dto.java";
+            return packagePath + "domain" + File.separator + "dto" + File.separator + className + "Dto.java";
         }
 
         if ("QueryCriteria".equals(templateName)) {
-            return packagePath + "service" + File.separator + "dto" + File.separator + className + "QueryCriteria.java";
+            return packagePath + "domain" + File.separator + "dto" + File.separator + className + "QueryCriteria.java";
         }
 
         if ("Mapper".equals(templateName)) {

@@ -13,12 +13,12 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package ${package}.rest;
+package ${package}.controller;
 
-import cn.woolsen.Log;
+import cn.woolsen.annotation.Log;
 import ${package}.domain.${className};
 import ${package}.service.${className}Service;
-import ${package}.service.dto.${className}QueryCriteria;
+import ${package}.domain.dto.${className}QueryCriteria;
 import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
