@@ -73,6 +73,14 @@
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
 
+        <!--Spring boot Dev Tool-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+
         <!--Spring boot Redis-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
