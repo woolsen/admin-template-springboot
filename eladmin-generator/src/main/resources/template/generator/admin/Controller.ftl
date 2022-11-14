@@ -31,10 +31,9 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
 /**
-* @website https://eladmin.vip
-* @author ${author}
-* @date ${date}
-**/
+ * @author ${author}
+ * @date ${date}
+ */
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "${apiAlias}管理")
@@ -56,7 +55,7 @@ public class ${className}Controller {
     @ApiOperation("查询${apiAlias}")
     @PreAuthorize("@el.check('${changeClassName}:list')")
     public ResponseEntity<Object> query${className}(${className}QueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity<>(${changeClassName}Service.queryAll(criteria,pageable),HttpStatus.OK);
+        return new ResponseEntity<>(${changeClassName}Service.queryAll(criteria,pageable), HttpStatus.OK);
     }
 
     @PostMapping
@@ -64,7 +63,7 @@ public class ${className}Controller {
     @ApiOperation("新增${apiAlias}")
     @PreAuthorize("@el.check('${changeClassName}:add')")
     public ResponseEntity<Object> create${className}(@Validated @RequestBody ${className} resources){
-        return new ResponseEntity<>(${changeClassName}Service.create(resources),HttpStatus.CREATED);
+        return new ResponseEntity<>(${changeClassName}Service.create(resources), HttpStatus.CREATED);
     }
 
     @PutMapping
