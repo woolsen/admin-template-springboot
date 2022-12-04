@@ -17,13 +17,13 @@ package cn.woolsen.modules.mnt.rest;
 
 import cn.woolsen.annotation.Log;
 import cn.woolsen.base.PageDTO;
-import cn.woolsen.modules.mnt.service.dto.AppDto;
+import cn.woolsen.modules.mnt.domain.dto.AppDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import cn.woolsen.modules.mnt.domain.App;
 import cn.woolsen.modules.mnt.service.AppService;
-import cn.woolsen.modules.mnt.service.dto.AppQueryCriteria;
+import cn.woolsen.modules.mnt.domain.dto.AppQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

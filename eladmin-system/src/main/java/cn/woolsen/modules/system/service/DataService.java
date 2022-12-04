@@ -15,7 +15,7 @@
  */
 package cn.woolsen.modules.system.service;
 
-import cn.woolsen.modules.system.service.dto.UserDto;
+import cn.woolsen.modules.system.domain.dto.UserDto;
 
 import java.util.List;
 

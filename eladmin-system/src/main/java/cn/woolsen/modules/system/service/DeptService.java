@@ -16,8 +16,8 @@
 package cn.woolsen.modules.system.service;
 
 import cn.woolsen.modules.system.domain.Dept;
-import cn.woolsen.modules.system.service.dto.DeptDto;
-import cn.woolsen.modules.system.service.dto.DeptQueryCriteria;
+import cn.woolsen.modules.system.domain.dto.DeptDto;
+import cn.woolsen.modules.system.domain.dto.DeptQueryCriteria;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

@@ -17,8 +17,8 @@ package cn.woolsen.modules.mnt.service;
 
 import cn.woolsen.base.PageDTO;
 import cn.woolsen.modules.mnt.domain.Database;
-import cn.woolsen.modules.mnt.service.dto.DatabaseQueryCriteria;
-import cn.woolsen.modules.mnt.service.dto.DatabaseDto;
+import cn.woolsen.modules.mnt.domain.dto.DatabaseQueryCriteria;
+import cn.woolsen.modules.mnt.domain.dto.DatabaseDto;
 import org.springframework.data.domain.Pageable;
 
 import javax.servlet.http.HttpServletResponse;

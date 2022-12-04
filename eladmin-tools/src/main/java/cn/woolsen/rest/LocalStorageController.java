@@ -16,14 +16,14 @@
 package cn.woolsen.rest;
 
 import cn.woolsen.base.PageDTO;
-import cn.woolsen.service.dto.LocalStorageDto;
+import cn.woolsen.domain.dto.LocalStorageDto;
 import cn.woolsen.utils.FileUtil;
 import lombok.RequiredArgsConstructor;
 import cn.woolsen.annotation.Log;
 import cn.woolsen.domain.LocalStorage;
 import cn.woolsen.exception.BadRequestException;
 import cn.woolsen.service.LocalStorageService;
-import cn.woolsen.service.dto.LocalStorageQueryCriteria;
+import cn.woolsen.domain.dto.LocalStorageQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

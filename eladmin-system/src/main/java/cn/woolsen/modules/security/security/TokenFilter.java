@@ -17,9 +17,9 @@ package cn.woolsen.modules.security.security;
 
 import cn.hutool.core.util.StrUtil;
 import cn.woolsen.modules.security.config.bean.SecurityProperties;
-import cn.woolsen.modules.security.service.OnlineUserService;
-import cn.woolsen.modules.security.service.UserCacheManager;
-import cn.woolsen.modules.security.service.dto.OnlineUserDto;
+import cn.woolsen.modules.security.domain.dto.service.OnlineUserService;
+import cn.woolsen.modules.security.domain.dto.service.UserCacheManager;
+import cn.woolsen.modules.security.domain.dto.OnlineUserDto;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

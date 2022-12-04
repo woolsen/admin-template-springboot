@@ -18,7 +18,7 @@ package cn.woolsen.service;
 import cn.woolsen.base.PageDTO;
 import cn.woolsen.domain.QiniuConfig;
 import cn.woolsen.domain.QiniuContent;
-import cn.woolsen.service.dto.QiniuQueryCriteria;
+import cn.woolsen.domain.dto.QiniuQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 

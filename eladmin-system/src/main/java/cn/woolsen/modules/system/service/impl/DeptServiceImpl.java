@@ -17,7 +17,7 @@ package cn.woolsen.modules.system.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
-import cn.woolsen.modules.system.service.dto.DeptDto;
+import cn.woolsen.modules.system.domain.dto.DeptDto;
 import cn.woolsen.utils.*;
 import lombok.RequiredArgsConstructor;
 import cn.woolsen.exception.BadRequestException;
@@ -25,8 +25,7 @@ import cn.woolsen.modules.system.domain.Dept;
 import cn.woolsen.modules.system.domain.User;
 import cn.woolsen.modules.system.repository.RoleRepository;
 import cn.woolsen.modules.system.repository.UserRepository;
-import cn.woolsen.modules.system.service.dto.DeptQueryCriteria;
-import cn.woolsen.utils.*;
+import cn.woolsen.modules.system.domain.dto.DeptQueryCriteria;
 import cn.woolsen.modules.system.repository.DeptRepository;
 import cn.woolsen.modules.system.service.DeptService;
 import cn.woolsen.modules.system.service.mapstruct.DeptMapper;

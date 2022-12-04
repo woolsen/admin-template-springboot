@@ -17,8 +17,8 @@ package cn.woolsen.modules.system.service;
 
 import cn.woolsen.base.PageDTO;
 import cn.woolsen.modules.system.domain.DictDetail;
-import cn.woolsen.modules.system.service.dto.DictDetailDto;
-import cn.woolsen.modules.system.service.dto.DictDetailQueryCriteria;
+import cn.woolsen.modules.system.domain.dto.DictDetailDto;
+import cn.woolsen.modules.system.domain.dto.DictDetailQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import java.util.List;
 

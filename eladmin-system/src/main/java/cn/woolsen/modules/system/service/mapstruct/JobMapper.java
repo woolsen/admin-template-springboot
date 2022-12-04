@@ -15,7 +15,7 @@
  */
 package cn.woolsen.modules.system.service.mapstruct;
 
-import cn.woolsen.modules.system.service.dto.JobDto;
+import cn.woolsen.modules.system.domain.dto.JobDto;
 import cn.woolsen.base.BaseMapper;
 import cn.woolsen.modules.system.domain.Job;
 import org.mapstruct.Mapper;

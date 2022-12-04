@@ -16,7 +16,7 @@
 package cn.woolsen.modules.mnt.service.mapstruct;
 
 import cn.woolsen.modules.mnt.domain.Deploy;
-import cn.woolsen.modules.mnt.service.dto.DeployDto;
+import cn.woolsen.modules.mnt.domain.dto.DeployDto;
 import cn.woolsen.base.BaseMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

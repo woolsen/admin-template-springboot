@@ -16,7 +16,7 @@
 package cn.woolsen.rest;
 
 import cn.woolsen.base.PageDTO;
-import cn.woolsen.service.dto.QiniuResult;
+import cn.woolsen.domain.dto.QiniuResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 import cn.woolsen.annotation.Log;
 import cn.woolsen.domain.QiniuConfig;
 import cn.woolsen.domain.QiniuContent;
-import cn.woolsen.service.dto.QiniuQueryCriteria;
+import cn.woolsen.domain.dto.QiniuQueryCriteria;
 import cn.woolsen.service.QiNiuService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;

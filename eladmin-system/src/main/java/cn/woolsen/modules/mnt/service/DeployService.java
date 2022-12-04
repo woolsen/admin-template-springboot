@@ -18,8 +18,8 @@ package cn.woolsen.modules.mnt.service;
 import cn.woolsen.base.PageDTO;
 import cn.woolsen.modules.mnt.domain.Deploy;
 import cn.woolsen.modules.mnt.domain.DeployHistory;
-import cn.woolsen.modules.mnt.service.dto.DeployDto;
-import cn.woolsen.modules.mnt.service.dto.DeployQueryCriteria;
+import cn.woolsen.modules.mnt.domain.dto.DeployDto;
+import cn.woolsen.modules.mnt.domain.dto.DeployQueryCriteria;
 import org.springframework.data.domain.Pageable;
 
 import javax.servlet.http.HttpServletResponse;

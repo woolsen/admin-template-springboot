@@ -25,7 +25,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import cn.woolsen.modules.quartz.service.QuartzJobService;
-import cn.woolsen.modules.quartz.service.dto.JobQueryCriteria;
+import cn.woolsen.modules.quartz.domain.dto.JobQueryCriteria;
 import cn.woolsen.utils.SpringContextHolder;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;

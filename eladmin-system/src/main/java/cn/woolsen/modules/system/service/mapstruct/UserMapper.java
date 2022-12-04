@@ -15,7 +15,7 @@
  */
 package cn.woolsen.modules.system.service.mapstruct;
 
-import cn.woolsen.modules.system.service.dto.UserDto;
+import cn.woolsen.modules.system.domain.dto.UserDto;
 import cn.woolsen.base.BaseMapper;
 import cn.woolsen.modules.system.domain.User;
 import org.mapstruct.Mapper;

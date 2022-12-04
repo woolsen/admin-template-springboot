@@ -15,7 +15,7 @@
  */
 package cn.woolsen.modules.system.service.mapstruct;
 
-import cn.woolsen.modules.system.service.dto.RoleSmallDto;
+import cn.woolsen.modules.system.domain.dto.RoleSmallDto;
 import cn.woolsen.base.BaseMapper;
 import cn.woolsen.modules.system.domain.Role;
 import org.mapstruct.Mapper;

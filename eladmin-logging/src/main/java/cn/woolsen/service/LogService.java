@@ -17,8 +17,8 @@ package cn.woolsen.service;
 
 import cn.woolsen.base.PageDTO;
 import cn.woolsen.domain.Log;
-import cn.woolsen.service.dto.LogQueryCriteria;
-import cn.woolsen.service.dto.LogSmallDTO;
+import cn.woolsen.domain.dto.LogQueryCriteria;
+import cn.woolsen.domain.dto.LogSmallDTO;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;

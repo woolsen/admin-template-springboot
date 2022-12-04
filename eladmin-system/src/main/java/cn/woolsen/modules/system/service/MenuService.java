@@ -16,8 +16,8 @@
 package cn.woolsen.modules.system.service;
 
 import cn.woolsen.modules.system.domain.Menu;
-import cn.woolsen.modules.system.service.dto.MenuDto;
-import cn.woolsen.modules.system.service.dto.MenuQueryCriteria;
+import cn.woolsen.modules.system.domain.dto.MenuDto;
+import cn.woolsen.modules.system.domain.dto.MenuQueryCriteria;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

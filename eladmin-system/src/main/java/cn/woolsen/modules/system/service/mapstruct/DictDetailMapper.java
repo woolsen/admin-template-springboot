@@ -17,7 +17,7 @@ package cn.woolsen.modules.system.service.mapstruct;
 
 import cn.woolsen.base.BaseMapper;
 import cn.woolsen.modules.system.domain.DictDetail;
-import cn.woolsen.modules.system.service.dto.DictDetailDto;
+import cn.woolsen.modules.system.domain.dto.DictDetailDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 

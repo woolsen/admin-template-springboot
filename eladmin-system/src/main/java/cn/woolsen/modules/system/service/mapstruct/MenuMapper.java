@@ -15,7 +15,7 @@
  */
 package cn.woolsen.modules.system.service.mapstruct;
 
-import cn.woolsen.modules.system.service.dto.MenuDto;
+import cn.woolsen.modules.system.domain.dto.MenuDto;
 import cn.woolsen.base.BaseMapper;
 import cn.woolsen.modules.system.domain.Menu;
 import org.mapstruct.Mapper;

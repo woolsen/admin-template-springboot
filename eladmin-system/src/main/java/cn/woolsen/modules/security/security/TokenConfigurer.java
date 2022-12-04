@@ -16,8 +16,8 @@
 package cn.woolsen.modules.security.security;
 
 import cn.woolsen.modules.security.config.bean.SecurityProperties;
-import cn.woolsen.modules.security.service.OnlineUserService;
-import cn.woolsen.modules.security.service.UserCacheManager;
+import cn.woolsen.modules.security.domain.dto.service.OnlineUserService;
+import cn.woolsen.modules.security.domain.dto.service.UserCacheManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

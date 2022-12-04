@@ -17,8 +17,8 @@ package cn.woolsen.rest;
 
 import cn.woolsen.base.PageDTO;
 import cn.woolsen.service.LogService;
-import cn.woolsen.service.dto.LogQueryCriteria;
-import cn.woolsen.service.dto.LogSmallDTO;
+import cn.woolsen.domain.dto.LogQueryCriteria;
+import cn.woolsen.domain.dto.LogSmallDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

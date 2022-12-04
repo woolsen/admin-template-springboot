@@ -34,7 +34,7 @@ import com.qiniu.storage.model.FileInfo;
 import com.qiniu.util.Auth;
 import lombok.RequiredArgsConstructor;
 import cn.woolsen.repository.QiniuContentRepository;
-import cn.woolsen.service.dto.QiniuQueryCriteria;
+import cn.woolsen.domain.dto.QiniuQueryCriteria;
 import cn.woolsen.repository.QiNiuConfigRepository;
 import cn.woolsen.utils.QueryHelp;
 import cn.woolsen.utils.ValidationUtil;

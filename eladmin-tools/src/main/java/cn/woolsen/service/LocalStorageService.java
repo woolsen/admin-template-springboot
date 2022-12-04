@@ -17,8 +17,8 @@ package cn.woolsen.service;
 
 import cn.woolsen.base.PageDTO;
 import cn.woolsen.domain.LocalStorage;
-import cn.woolsen.service.dto.LocalStorageDto;
-import cn.woolsen.service.dto.LocalStorageQueryCriteria;
+import cn.woolsen.domain.dto.LocalStorageDto;
+import cn.woolsen.domain.dto.LocalStorageQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;

@@ -16,7 +16,7 @@
 package cn.woolsen.modules.mnt.service.mapstruct;
 
 import cn.woolsen.modules.mnt.domain.Database;
-import cn.woolsen.modules.mnt.service.dto.DatabaseDto;
+import cn.woolsen.modules.mnt.domain.dto.DatabaseDto;
 import cn.woolsen.base.BaseMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

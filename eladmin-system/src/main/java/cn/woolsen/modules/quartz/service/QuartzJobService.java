@@ -18,7 +18,7 @@ package cn.woolsen.modules.quartz.service;
 import cn.woolsen.base.PageDTO;
 import cn.woolsen.modules.quartz.domain.QuartzJob;
 import cn.woolsen.modules.quartz.domain.QuartzLog;
-import cn.woolsen.modules.quartz.service.dto.JobQueryCriteria;
+import cn.woolsen.modules.quartz.domain.dto.JobQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

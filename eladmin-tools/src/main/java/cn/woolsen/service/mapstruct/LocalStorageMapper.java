@@ -17,7 +17,7 @@ package cn.woolsen.service.mapstruct;
 
 import cn.woolsen.domain.LocalStorage;
 import cn.woolsen.base.BaseMapper;
-import cn.woolsen.service.dto.LocalStorageDto;
+import cn.woolsen.domain.dto.LocalStorageDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 

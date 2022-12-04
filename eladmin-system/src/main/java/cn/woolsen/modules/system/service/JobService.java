@@ -16,9 +16,9 @@
 package cn.woolsen.modules.system.service;
 
 import cn.woolsen.base.PageDTO;
-import cn.woolsen.modules.system.service.dto.JobDto;
+import cn.woolsen.modules.system.domain.dto.JobDto;
 import cn.woolsen.modules.system.domain.Job;
-import cn.woolsen.modules.system.service.dto.JobQueryCriteria;
+import cn.woolsen.modules.system.domain.dto.JobQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

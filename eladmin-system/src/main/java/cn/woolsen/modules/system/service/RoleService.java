@@ -16,12 +16,12 @@
 package cn.woolsen.modules.system.service;
 
 import cn.woolsen.base.PageDTO;
-import cn.woolsen.modules.security.service.dto.AuthorityDto;
+import cn.woolsen.modules.security.domain.dto.AuthorityDto;
 import cn.woolsen.modules.system.domain.Role;
-import cn.woolsen.modules.system.service.dto.RoleDto;
-import cn.woolsen.modules.system.service.dto.RoleQueryCriteria;
-import cn.woolsen.modules.system.service.dto.RoleSmallDto;
-import cn.woolsen.modules.system.service.dto.UserDto;
+import cn.woolsen.modules.system.domain.dto.RoleDto;
+import cn.woolsen.modules.system.domain.dto.RoleQueryCriteria;
+import cn.woolsen.modules.system.domain.dto.RoleSmallDto;
+import cn.woolsen.modules.system.domain.dto.UserDto;
 import org.springframework.data.domain.Pageable;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

@@ -17,9 +17,9 @@ package cn.woolsen.modules.system.service;
 
 import cn.woolsen.base.PageDTO;
 import cn.woolsen.modules.system.domain.User;
-import cn.woolsen.modules.system.service.dto.UserDto;
-import cn.woolsen.modules.system.service.dto.UserLoginDto;
-import cn.woolsen.modules.system.service.dto.UserQueryCriteria;
+import cn.woolsen.modules.system.domain.dto.UserDto;
+import cn.woolsen.modules.system.domain.dto.UserLoginDto;
+import cn.woolsen.modules.system.domain.dto.UserQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;

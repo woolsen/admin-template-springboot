@@ -16,7 +16,7 @@
 package cn.woolsen.modules.system.service.impl;
 
 import cn.woolsen.base.PageDTO;
-import cn.woolsen.modules.system.service.dto.JobDto;
+import cn.woolsen.modules.system.domain.dto.JobDto;
 import cn.woolsen.modules.system.service.mapstruct.JobMapper;
 import cn.woolsen.utils.*;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ import cn.woolsen.exception.BadRequestException;
 import cn.woolsen.exception.EntityExistException;
 import cn.woolsen.modules.system.domain.Job;
 import cn.woolsen.modules.system.repository.UserRepository;
-import cn.woolsen.modules.system.service.dto.JobQueryCriteria;
+import cn.woolsen.modules.system.domain.dto.JobQueryCriteria;
 import cn.woolsen.modules.system.repository.JobRepository;
 import cn.woolsen.modules.system.service.JobService;
 import org.springframework.cache.annotation.CacheConfig;

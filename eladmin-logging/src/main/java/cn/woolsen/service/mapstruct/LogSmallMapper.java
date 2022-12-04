@@ -16,7 +16,7 @@
 package cn.woolsen.service.mapstruct;
 
 import cn.woolsen.domain.Log;
-import cn.woolsen.service.dto.LogSmallDTO;
+import cn.woolsen.domain.dto.LogSmallDTO;
 import cn.woolsen.base.BaseMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

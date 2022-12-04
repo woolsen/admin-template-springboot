@@ -16,8 +16,8 @@
 package cn.woolsen.modules.security.rest;
 
 import cn.woolsen.base.PageDTO;
-import cn.woolsen.modules.security.service.OnlineUserService;
-import cn.woolsen.modules.security.service.dto.OnlineUserDto;
+import cn.woolsen.modules.security.domain.dto.service.OnlineUserService;
+import cn.woolsen.modules.security.domain.dto.OnlineUserDto;
 import cn.woolsen.utils.EncryptUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
