@@ -16,6 +16,7 @@
 package cn.woolsen.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
+import cn.woolsen.base.PageDTO;
 import cn.woolsen.config.FileProperties;
 import cn.woolsen.domain.LocalStorage;
 import cn.woolsen.exception.BadRequestException;
@@ -53,7 +54,7 @@ public class LocalStorageServiceImpl implements LocalStorageService {
     private final FileProperties properties;
 
     @Override
-    public Object queryAll(LocalStorageQueryCriteria criteria, Pageable pageable){
+    public PageDTO<LocalStorageDto> queryAll(LocalStorageQueryCriteria criteria, Pageable pageable){
         Page<LocalStorage> page = localStorageRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
         return PageUtil.toPage(page.map(localStorageMapper::toDto));
     }

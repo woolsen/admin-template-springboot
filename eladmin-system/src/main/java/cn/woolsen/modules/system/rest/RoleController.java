@@ -17,6 +17,7 @@ package cn.woolsen.modules.system.rest;
 
 import cn.hutool.core.lang.Dict;
 import cn.woolsen.annotation.Log;
+import cn.woolsen.base.PageDTO;
 import cn.woolsen.exception.BadRequestException;
 import cn.woolsen.modules.system.service.dto.RoleQueryCriteria;
 import cn.woolsen.modules.system.service.dto.RoleSmallDto;
@@ -78,7 +79,7 @@ public class RoleController {
     @ApiOperation("查询角色")
     @GetMapping
     @PreAuthorize("@el.check('roles:list')")
-    public ResponseEntity<Object> queryRole(RoleQueryCriteria criteria, Pageable pageable){
+    public ResponseEntity<PageDTO<RoleDto>> queryRole(RoleQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity<>(roleService.queryAll(criteria,pageable),HttpStatus.OK);
     }
 

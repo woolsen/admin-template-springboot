@@ -17,6 +17,7 @@ package cn.woolsen.modules.mnt.service.impl;
 
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
+import cn.woolsen.base.PageDTO;
 import cn.woolsen.exception.BadRequestException;
 import cn.woolsen.modules.mnt.domain.App;
 import cn.woolsen.modules.mnt.domain.Deploy;
@@ -69,7 +70,7 @@ public class DeployServiceImpl implements DeployService {
 
 
 	@Override
-	public Object queryAll(DeployQueryCriteria criteria, Pageable pageable) {
+	public PageDTO<DeployDto> queryAll(DeployQueryCriteria criteria, Pageable pageable) {
 		Page<Deploy> page = deployRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder), pageable);
 		return PageUtil.toPage(page.map(deployMapper::toDto));
 	}

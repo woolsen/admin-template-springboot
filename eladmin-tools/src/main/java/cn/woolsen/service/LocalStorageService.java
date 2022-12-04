@@ -15,6 +15,7 @@
  */
 package cn.woolsen.service;
 
+import cn.woolsen.base.PageDTO;
 import cn.woolsen.domain.LocalStorage;
 import cn.woolsen.service.dto.LocalStorageDto;
 import cn.woolsen.service.dto.LocalStorageQueryCriteria;
@@ -36,7 +37,7 @@ public interface LocalStorageService {
      * @param pageable 分页参数
      * @return /
      */
-    Object queryAll(LocalStorageQueryCriteria criteria, Pageable pageable);
+    PageDTO<LocalStorageDto> queryAll(LocalStorageQueryCriteria criteria, Pageable pageable);
 
     /**
      * 查询全部数据

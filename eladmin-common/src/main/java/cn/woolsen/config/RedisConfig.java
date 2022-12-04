@@ -90,7 +90,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         // 模块内的 Dto
         ParserConfig.getGlobalInstance().addAccept("cn.woolsen.modules.mnt.domain.dto");
         ParserConfig.getGlobalInstance().addAccept("cn.woolsen.modules.quartz.domain.dto");
-        ParserConfig.getGlobalInstance().addAccept("cn.woolsen.modules.security.domain.dto");
+        ParserConfig.getGlobalInstance().addAccept("cn.woolsen.modules.security.service.dto");
         ParserConfig.getGlobalInstance().addAccept("cn.woolsen.modules.system.domain.dto");
         // key的序列化采用StringRedisSerializer
         template.setKeySerializer(new StringRedisSerializer());

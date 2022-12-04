@@ -16,12 +16,12 @@
 package cn.woolsen.modules.system.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.woolsen.base.PageDTO;
 import cn.woolsen.utils.*;
 import lombok.RequiredArgsConstructor;
 import cn.woolsen.modules.system.domain.Dict;
 import cn.woolsen.modules.system.service.dto.DictDetailDto;
 import cn.woolsen.modules.system.service.dto.DictQueryCriteria;
-import cn.woolsen.utils.*;
 import cn.woolsen.modules.system.repository.DictRepository;
 import cn.woolsen.modules.system.service.DictService;
 import cn.woolsen.modules.system.service.dto.DictDto;
@@ -49,7 +49,7 @@ public class DictServiceImpl implements DictService {
     private final RedisUtils redisUtils;
 
     @Override
-    public Map<String, Object> queryAll(DictQueryCriteria dict, Pageable pageable){
+    public PageDTO<DictDto> queryAll(DictQueryCriteria dict, Pageable pageable){
         Page<Dict> page = dictRepository.findAll((root, query, cb) -> QueryHelp.getPredicate(root, dict, cb), pageable);
         return PageUtil.toPage(page.map(dictMapper::toDto));
     }

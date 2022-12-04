@@ -15,6 +15,7 @@
  */
 package cn.woolsen.modules.quartz.service;
 
+import cn.woolsen.base.PageDTO;
 import cn.woolsen.modules.quartz.domain.QuartzJob;
 import cn.woolsen.modules.quartz.domain.QuartzLog;
 import cn.woolsen.modules.quartz.service.dto.JobQueryCriteria;
@@ -36,7 +37,7 @@ public interface QuartzJobService {
      * @param pageable 分页参数
      * @return /
      */
-    Object queryAll(JobQueryCriteria criteria, Pageable pageable);
+    PageDTO<QuartzJob> queryAll(JobQueryCriteria criteria, Pageable pageable);
 
     /**
      * 查询全部
@@ -51,7 +52,7 @@ public interface QuartzJobService {
      * @param pageable 分页参数
      * @return /
      */
-    Object queryAllLog(JobQueryCriteria criteria, Pageable pageable);
+    PageDTO<QuartzLog> queryAllLog(JobQueryCriteria criteria, Pageable pageable);
 
     /**
      * 查询全部

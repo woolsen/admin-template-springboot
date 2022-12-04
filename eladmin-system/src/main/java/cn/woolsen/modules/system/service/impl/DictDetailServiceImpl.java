@@ -15,13 +15,13 @@
  */
 package cn.woolsen.modules.system.service.impl;
 
+import cn.woolsen.base.PageDTO;
 import cn.woolsen.utils.*;
 import lombok.RequiredArgsConstructor;
 import cn.woolsen.modules.system.domain.Dict;
 import cn.woolsen.modules.system.domain.DictDetail;
 import cn.woolsen.modules.system.repository.DictRepository;
 import cn.woolsen.modules.system.service.dto.DictDetailQueryCriteria;
-import cn.woolsen.utils.*;
 import cn.woolsen.modules.system.repository.DictDetailRepository;
 import cn.woolsen.modules.system.service.DictDetailService;
 import cn.woolsen.modules.system.service.dto.DictDetailDto;
@@ -33,7 +33,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
-import java.util.Map;
 
 /**
 * @author Zheng Jie
@@ -50,7 +49,7 @@ public class DictDetailServiceImpl implements DictDetailService {
     private final RedisUtils redisUtils;
 
     @Override
-    public Map<String,Object> queryAll(DictDetailQueryCriteria criteria, Pageable pageable) {
+    public PageDTO<DictDetailDto> queryAll(DictDetailQueryCriteria criteria, Pageable pageable) {
         Page<DictDetail> page = dictDetailRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
         return PageUtil.toPage(page.map(dictDetailMapper::toDto));
     }

@@ -16,6 +16,7 @@
 package cn.woolsen.modules.system.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.woolsen.base.PageDTO;
 import cn.woolsen.modules.system.service.dto.RoleQueryCriteria;
 import cn.woolsen.modules.system.service.dto.RoleSmallDto;
 import cn.woolsen.modules.system.service.dto.UserDto;
@@ -75,7 +76,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Object queryAll(RoleQueryCriteria criteria, Pageable pageable) {
+    public PageDTO<RoleDto> queryAll(RoleQueryCriteria criteria, Pageable pageable) {
         Page<Role> page = roleRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder), pageable);
         return PageUtil.toPage(page.map(roleMapper::toDto));
     }

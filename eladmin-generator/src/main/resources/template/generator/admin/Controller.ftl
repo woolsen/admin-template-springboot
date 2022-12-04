@@ -1,22 +1,9 @@
-/*
-*  Copyright 2019-2020 Zheng Jie
-*
-*  Licensed under the Apache License, Version 2.0 (the "License");
-*  you may not use this file except in compliance with the License.
-*  You may obtain a copy of the License at
-*
-*  http://www.apache.org/licenses/LICENSE-2.0
-*
-*  Unless required by applicable law or agreed to in writing, software
-*  distributed under the License is distributed on an "AS IS" BASIS,
-*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-*  See the License for the specific language governing permissions and
-*  limitations under the License.
-*/
 package ${package}.controller;
 
 import cn.woolsen.annotation.Log;
+import cn.woolsen.base.PageDTO;
 import ${package}.domain.${className};
+import ${package}.domain.dto.${className}Dto;
 import ${package}.service.${className}Service;
 import ${package}.domain.dto.${className}QueryCriteria;
 import org.springframework.data.domain.Pageable;
@@ -54,7 +41,7 @@ public class ${className}Controller {
     @Log("查询${apiAlias}")
     @ApiOperation("查询${apiAlias}")
     @PreAuthorize("@el.check('${changeClassName}:list')")
-    public ResponseEntity<Object> query${className}(${className}QueryCriteria criteria, Pageable pageable){
+    public ResponseEntity<PageDTO<${className}Dto>> query${className}(${className}QueryCriteria criteria, Pageable pageable){
         return new ResponseEntity<>(${changeClassName}Service.queryAll(criteria,pageable), HttpStatus.OK);
     }
 

@@ -15,6 +15,7 @@
  */
 package cn.woolsen.modules.system.service;
 
+import cn.woolsen.base.PageDTO;
 import cn.woolsen.modules.security.service.dto.AuthorityDto;
 import cn.woolsen.modules.system.domain.Role;
 import cn.woolsen.modules.system.service.dto.RoleDto;
@@ -97,7 +98,7 @@ public interface RoleService {
      * @param pageable 分页参数
      * @return /
      */
-    Object queryAll(RoleQueryCriteria criteria, Pageable pageable);
+    PageDTO<RoleDto> queryAll(RoleQueryCriteria criteria, Pageable pageable);
 
     /**
      * 查询全部

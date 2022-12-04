@@ -15,16 +15,19 @@
  */
 package cn.woolsen.modules.security.rest;
 
+import cn.woolsen.base.PageDTO;
+import cn.woolsen.modules.security.service.OnlineUserService;
+import cn.woolsen.modules.security.service.dto.OnlineUserDto;
+import cn.woolsen.utils.EncryptUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import cn.woolsen.modules.security.service.OnlineUserService;
-import cn.woolsen.utils.EncryptUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Set;
@@ -43,8 +46,8 @@ public class OnlineController {
     @ApiOperation("查询在线用户")
     @GetMapping
     @PreAuthorize("@el.check()")
-    public ResponseEntity<Object> queryOnlineUser(String filter, Pageable pageable){
-        return new ResponseEntity<>(onlineUserService.getAll(filter, pageable),HttpStatus.OK);
+    public ResponseEntity<PageDTO<OnlineUserDto>> queryOnlineUser(String filter, Pageable pageable) {
+        return new ResponseEntity<>(onlineUserService.getAll(filter, pageable), HttpStatus.OK);
     }
 
     @ApiOperation("导出数据")

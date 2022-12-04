@@ -15,6 +15,7 @@
  */
 package cn.woolsen.modules.system.service;
 
+import cn.woolsen.base.PageDTO;
 import cn.woolsen.modules.system.service.dto.JobDto;
 import cn.woolsen.modules.system.domain.Job;
 import cn.woolsen.modules.system.service.dto.JobQueryCriteria;
@@ -22,7 +23,6 @@ import org.springframework.data.domain.Pageable;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -59,11 +59,12 @@ public interface JobService {
 
     /**
      * 分页查询
+     *
      * @param criteria 条件
      * @param pageable 分页参数
      * @return /
      */
-    Map<String,Object> queryAll(JobQueryCriteria criteria, Pageable pageable);
+    PageDTO<JobDto> queryAll(JobQueryCriteria criteria, Pageable pageable);
 
     /**
      * 查询全部数据

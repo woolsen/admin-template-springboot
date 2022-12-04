@@ -19,9 +19,11 @@ import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import cn.woolsen.base.PageDTO;
 import cn.woolsen.domain.Log;
 import cn.woolsen.service.LogService;
 import cn.woolsen.service.dto.LogQueryCriteria;
+import cn.woolsen.service.dto.LogSmallDTO;
 import cn.woolsen.utils.*;
 import lombok.RequiredArgsConstructor;
 import cn.woolsen.repository.LogRepository;
@@ -70,7 +72,7 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public Object queryAllByUser(LogQueryCriteria criteria, Pageable pageable) {
+    public PageDTO<LogSmallDTO> queryAllByUser(LogQueryCriteria criteria, Pageable pageable) {
         Page<Log> page = logRepository.findAll(((root, criteriaQuery, cb) -> QueryHelp.getPredicate(root, criteria, cb)), pageable);
         return PageUtil.toPage(page.map(logSmallMapper::toDto));
     }

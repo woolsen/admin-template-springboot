@@ -16,6 +16,7 @@
 package cn.woolsen.modules.mnt.service.impl;
 
 import cn.hutool.core.util.IdUtil;
+import cn.woolsen.base.PageDTO;
 import cn.woolsen.modules.mnt.domain.Database;
 import cn.woolsen.modules.mnt.service.DatabaseService;
 import cn.woolsen.modules.mnt.service.dto.DatabaseDto;
@@ -50,7 +51,7 @@ public class DatabaseServiceImpl implements DatabaseService {
     private final DatabaseMapper databaseMapper;
 
     @Override
-    public Object queryAll(DatabaseQueryCriteria criteria, Pageable pageable){
+    public PageDTO<DatabaseDto> queryAll(DatabaseQueryCriteria criteria, Pageable pageable){
         Page<Database> page = databaseRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
         return PageUtil.toPage(page.map(databaseMapper::toDto));
     }

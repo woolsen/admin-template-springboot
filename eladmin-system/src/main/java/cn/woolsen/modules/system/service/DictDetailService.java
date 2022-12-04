@@ -15,12 +15,12 @@
  */
 package cn.woolsen.modules.system.service;
 
+import cn.woolsen.base.PageDTO;
 import cn.woolsen.modules.system.domain.DictDetail;
 import cn.woolsen.modules.system.service.dto.DictDetailDto;
 import cn.woolsen.modules.system.service.dto.DictDetailQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import java.util.List;
-import java.util.Map;
 
 /**
 * @author Zheng Jie
@@ -48,11 +48,12 @@ public interface DictDetailService {
 
     /**
      * 分页查询
+     *
      * @param criteria 条件
      * @param pageable 分页参数
      * @return /
      */
-    Map<String,Object> queryAll(DictDetailQueryCriteria criteria, Pageable pageable);
+    PageDTO<DictDetailDto> queryAll(DictDetailQueryCriteria criteria, Pageable pageable);
 
     /**
      * 根据字典名称获取字典详情

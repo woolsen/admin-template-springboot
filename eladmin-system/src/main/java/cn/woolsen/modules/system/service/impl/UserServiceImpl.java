@@ -15,7 +15,9 @@
  */
 package cn.woolsen.modules.system.service.impl;
 
+import cn.woolsen.base.PageDTO;
 import cn.woolsen.modules.system.service.dto.*;
+import cn.woolsen.service.dto.LocalStorageDto;
 import cn.woolsen.utils.*;
 import lombok.RequiredArgsConstructor;
 import cn.woolsen.config.FileProperties;
@@ -63,7 +65,7 @@ public class UserServiceImpl implements UserService {
     private final UserLoginMapper userLoginMapper;
 
     @Override
-    public Object queryAll(UserQueryCriteria criteria, Pageable pageable) {
+    public PageDTO<UserDto> queryAll(UserQueryCriteria criteria, Pageable pageable) {
         Page<User> page = userRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder), pageable);
         return PageUtil.toPage(page.map(userMapper::toDto));
     }

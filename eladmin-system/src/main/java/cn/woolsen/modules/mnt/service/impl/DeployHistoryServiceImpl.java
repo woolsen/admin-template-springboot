@@ -16,6 +16,7 @@
 package cn.woolsen.modules.mnt.service.impl;
 
 import cn.hutool.core.util.IdUtil;
+import cn.woolsen.base.PageDTO;
 import cn.woolsen.modules.mnt.domain.DeployHistory;
 import cn.woolsen.modules.mnt.service.DeployHistoryService;
 import cn.woolsen.modules.mnt.service.dto.DeployHistoryDto;
@@ -47,7 +48,7 @@ public class DeployHistoryServiceImpl implements DeployHistoryService {
     private final DeployHistoryMapper deployhistoryMapper;
 
     @Override
-    public Object queryAll(DeployHistoryQueryCriteria criteria, Pageable pageable){
+    public PageDTO<DeployHistoryDto> queryAll(DeployHistoryQueryCriteria criteria, Pageable pageable){
         Page<DeployHistory> page = deployhistoryRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
         return PageUtil.toPage(page.map(deployhistoryMapper::toDto));
     }

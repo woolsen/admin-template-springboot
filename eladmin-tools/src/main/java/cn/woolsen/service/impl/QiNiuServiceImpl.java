@@ -15,6 +15,7 @@
  */
 package cn.woolsen.service.impl;
 
+import cn.woolsen.base.PageDTO;
 import cn.woolsen.domain.QiniuConfig;
 import cn.woolsen.domain.QiniuContent;
 import cn.woolsen.exception.BadRequestException;
@@ -84,7 +85,7 @@ public class QiNiuServiceImpl implements QiNiuService {
     }
 
     @Override
-    public Object queryAll(QiniuQueryCriteria criteria, Pageable pageable){
+    public PageDTO<QiniuContent> queryAll(QiniuQueryCriteria criteria, Pageable pageable){
         return PageUtil.toPage(qiniuContentRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable));
     }
 

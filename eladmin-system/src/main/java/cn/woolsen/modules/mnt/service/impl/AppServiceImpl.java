@@ -15,6 +15,7 @@
  */
 package cn.woolsen.modules.mnt.service.impl;
 
+import cn.woolsen.base.PageDTO;
 import cn.woolsen.exception.BadRequestException;
 import cn.woolsen.modules.mnt.domain.App;
 import cn.woolsen.modules.mnt.service.AppService;
@@ -47,7 +48,7 @@ public class AppServiceImpl implements AppService {
     private final AppMapper appMapper;
 
     @Override
-    public Object queryAll(AppQueryCriteria criteria, Pageable pageable){
+    public PageDTO<AppDto> queryAll(AppQueryCriteria criteria, Pageable pageable){
         Page<App> page = appRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
         return PageUtil.toPage(page.map(appMapper::toDto));
     }

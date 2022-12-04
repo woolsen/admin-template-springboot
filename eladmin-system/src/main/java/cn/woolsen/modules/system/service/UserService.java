@@ -15,6 +15,7 @@
  */
 package cn.woolsen.modules.system.service;
 
+import cn.woolsen.base.PageDTO;
 import cn.woolsen.modules.system.domain.User;
 import cn.woolsen.modules.system.service.dto.UserDto;
 import cn.woolsen.modules.system.service.dto.UserLoginDto;
@@ -100,7 +101,7 @@ public interface UserService {
      * @param pageable 分页参数
      * @return /
      */
-    Object queryAll(UserQueryCriteria criteria, Pageable pageable);
+    PageDTO<UserDto> queryAll(UserQueryCriteria criteria, Pageable pageable);
 
     /**
      * 查询全部不分页

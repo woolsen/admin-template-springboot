@@ -15,6 +15,7 @@
  */
 package cn.woolsen.service;
 
+import cn.woolsen.base.PageDTO;
 import cn.woolsen.domain.QiniuConfig;
 import cn.woolsen.domain.QiniuContent;
 import cn.woolsen.service.dto.QiniuQueryCriteria;
@@ -50,7 +51,7 @@ public interface QiNiuService {
      * @param pageable 分页参数
      * @return /
      */
-    Object queryAll(QiniuQueryCriteria criteria, Pageable pageable);
+    PageDTO<QiniuContent> queryAll(QiniuQueryCriteria criteria, Pageable pageable);
 
     /**
      * 查询全部

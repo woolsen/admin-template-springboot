@@ -34,6 +34,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -54,12 +55,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class GeneratorServiceImpl implements GeneratorService {
     private static final Logger log = LoggerFactory.getLogger(GeneratorServiceImpl.class);
+    private final ColumnInfoRepository columnInfoRepository;
+    private final String CONFIG_MESSAGE = "请先配置生成器";
     @PersistenceContext
     private EntityManager em;
 
-    private final ColumnInfoRepository columnInfoRepository;
-
-    private final String CONFIG_MESSAGE = "请先配置生成器";
     @Override
     public Object getTables() {
         // 使用预编译防止sql注入
@@ -90,7 +90,7 @@ public class GeneratorServiceImpl implements GeneratorService {
                 "where table_schema = (select database()) and table_name like :table";
         Query queryCount = em.createNativeQuery(countSql);
         queryCount.setParameter("table", StringUtils.isNotBlank(name) ? ("%" + name + "%") : "%%");
-        Object totalElements = queryCount.getSingleResult();
+        Long totalElements = Long.parseLong(queryCount.getSingleResult().toString());
         return PageUtil.toPage(tableInfos, totalElements);
     }
 

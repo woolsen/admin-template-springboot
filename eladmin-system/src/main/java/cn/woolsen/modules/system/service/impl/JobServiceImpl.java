@@ -15,6 +15,7 @@
  */
 package cn.woolsen.modules.system.service.impl;
 
+import cn.woolsen.base.PageDTO;
 import cn.woolsen.modules.system.service.dto.JobDto;
 import cn.woolsen.modules.system.service.mapstruct.JobMapper;
 import cn.woolsen.utils.*;
@@ -24,7 +25,6 @@ import cn.woolsen.exception.EntityExistException;
 import cn.woolsen.modules.system.domain.Job;
 import cn.woolsen.modules.system.repository.UserRepository;
 import cn.woolsen.modules.system.service.dto.JobQueryCriteria;
-import cn.woolsen.utils.*;
 import cn.woolsen.modules.system.repository.JobRepository;
 import cn.woolsen.modules.system.service.JobService;
 import org.springframework.cache.annotation.CacheConfig;
@@ -53,7 +53,7 @@ public class JobServiceImpl implements JobService {
     private final UserRepository userRepository;
 
     @Override
-    public Map<String,Object> queryAll(JobQueryCriteria criteria, Pageable pageable) {
+    public PageDTO<JobDto> queryAll(JobQueryCriteria criteria, Pageable pageable) {
         Page<Job> page = jobRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
         return PageUtil.toPage(page.map(jobMapper::toDto).getContent(),page.getTotalElements());
     }

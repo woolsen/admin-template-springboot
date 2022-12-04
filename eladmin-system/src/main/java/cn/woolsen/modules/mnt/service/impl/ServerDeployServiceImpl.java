@@ -15,6 +15,7 @@
  */
 package cn.woolsen.modules.mnt.service.impl;
 
+import cn.woolsen.base.PageDTO;
 import cn.woolsen.modules.mnt.domain.ServerDeploy;
 import cn.woolsen.modules.mnt.service.ServerDeployService;
 import cn.woolsen.modules.mnt.service.dto.ServerDeployQueryCriteria;
@@ -47,7 +48,7 @@ public class ServerDeployServiceImpl implements ServerDeployService {
     private final ServerDeployMapper serverDeployMapper;
 
     @Override
-    public Object queryAll(ServerDeployQueryCriteria criteria, Pageable pageable){
+    public PageDTO<ServerDeployDto> queryAll(ServerDeployQueryCriteria criteria, Pageable pageable){
         Page<ServerDeploy> page = serverDeployRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
         return PageUtil.toPage(page.map(serverDeployMapper::toDto));
     }
