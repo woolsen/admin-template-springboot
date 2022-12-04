@@ -2,8 +2,8 @@ package ${package}.domain;
 
 import lombok.Data;
 import cn.hutool.core.bean.BeanUtil;
-import io.swagger.annotations.ApiModelProperty;
 import cn.hutool.core.bean.copier.CopyOptions;
+import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.*;
 <#if isNotNullColumns??>
 import javax.validation.constraints.*;

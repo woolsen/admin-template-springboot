@@ -1,13 +1,13 @@
 package ${package}.controller;
 
-import cn.woolsen.annotation.Log;
-import cn.woolsen.base.PageDTO;
+import ${group}.annotation.Log;
+import ${group}.base.PageDTO;
 import ${package}.domain.${className};
 import ${package}.domain.dto.${className}Dto;
 import ${package}.service.${className}Service;
 import ${package}.domain.dto.${className}QueryCriteria;
-import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

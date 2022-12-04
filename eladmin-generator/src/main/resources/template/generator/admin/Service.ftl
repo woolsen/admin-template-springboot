@@ -1,20 +1,20 @@
 package ${package}.service;
 
-import cn.woolsen.base.PageDTO;
+import ${group}.base.PageDTO;
 import ${package}.domain.${className};
 <#if columns??>
     <#list columns as column>
         <#if column.columnKey = 'UNI'>
             <#if column_index = 1>
-import cn.woolsen.exception.EntityExistException;
+import ${group}.exception.EntityExistException;
             </#if>
         </#if>
     </#list>
 </#if>
-import cn.woolsen.utils.ValidationUtil;
-import cn.woolsen.utils.FileUtil;
-import cn.woolsen.utils.PageUtil;
-import cn.woolsen.utils.QueryHelp;
+import ${group}.utils.ValidationUtil;
+import ${group}.utils.FileUtil;
+import ${group}.utils.PageUtil;
+import ${group}.utils.QueryHelp;
 import lombok.RequiredArgsConstructor;
 import ${package}.repository.${className}Repository;
 import ${package}.domain.dto.${className}Dto;

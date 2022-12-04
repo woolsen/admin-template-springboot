@@ -1,6 +1,6 @@
 package ${package}.service.mapstruct;
 
-import cn.woolsen.base.BaseMapper;
+import ${group}.base.BaseMapper;
 import ${package}.domain.${className};
 import ${package}.domain.dto.${className}Dto;
 import org.mapstruct.Mapper;

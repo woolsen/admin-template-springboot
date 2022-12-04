@@ -31,6 +31,7 @@ import cn.woolsen.repository.ColumnInfoRepository;
 import cn.woolsen.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.info.BuildProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -52,13 +53,19 @@ import java.util.stream.Collectors;
  * @date 2019-01-02
  */
 @Service
-@RequiredArgsConstructor
 public class GeneratorServiceImpl implements GeneratorService {
     private static final Logger log = LoggerFactory.getLogger(GeneratorServiceImpl.class);
     private final ColumnInfoRepository columnInfoRepository;
+    private final String group;
     private final String CONFIG_MESSAGE = "请先配置生成器";
     @PersistenceContext
     private EntityManager em;
+
+    public GeneratorServiceImpl(ColumnInfoRepository columnInfoRepository, BuildProperties buildProperties, EntityManager em) {
+        this.columnInfoRepository = columnInfoRepository;
+        this.group = buildProperties.getGroup();
+        this.em = em;
+    }
 
     @Override
     public Object getTables() {
@@ -173,7 +180,7 @@ public class GeneratorServiceImpl implements GeneratorService {
             throw new BadRequestException(CONFIG_MESSAGE);
         }
         try {
-            GenUtil.generatorCode(columns, genConfig);
+            GenUtil.generatorCode(group, columns, genConfig);
         } catch (IOException e) {
             log.error(e.getMessage(), e);
             throw new BadRequestException("生成失败，请手动处理已生成的文件");
@@ -185,7 +192,7 @@ public class GeneratorServiceImpl implements GeneratorService {
         if (genConfig.getId() == null) {
             throw new BadRequestException(CONFIG_MESSAGE);
         }
-        List<Map<String, Object>> genList = GenUtil.preview(columns, genConfig);
+        List<Map<String, Object>> genList = GenUtil.preview(group, columns, genConfig);
         return new ResponseEntity<>(genList, HttpStatus.OK);
     }
 
@@ -195,7 +202,7 @@ public class GeneratorServiceImpl implements GeneratorService {
             throw new BadRequestException(CONFIG_MESSAGE);
         }
         try {
-            File file = new File(GenUtil.download(columns, genConfig));
+            File file = new File(GenUtil.download(group, columns, genConfig));
             String zipPath = file.getPath() + ".zip";
             ZipUtil.zip(file.getPath(), zipPath);
             FileUtil.downloadFile(request, response, new File(zipPath), true);

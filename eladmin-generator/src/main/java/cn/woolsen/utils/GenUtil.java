@@ -76,8 +76,8 @@ public class GenUtil {
         return templateNames;
     }
 
-    public static List<Map<String, Object>> preview(List<ColumnInfo> columns, GenConfig genConfig) {
-        Map<String, Object> genMap = getGenMap(columns, genConfig);
+    public static List<Map<String, Object>> preview(String group, List<ColumnInfo> columns, GenConfig genConfig) {
+        Map<String, Object> genMap = getGenMap(group, columns, genConfig);
         List<Map<String, Object>> genList = new ArrayList<>();
         // 获取后端模版
         List<String> templates = getAdminTemplateNames();
@@ -102,11 +102,11 @@ public class GenUtil {
         return genList;
     }
 
-    public static String download(List<ColumnInfo> columns, GenConfig genConfig) throws IOException {
+    public static String download(String group, List<ColumnInfo> columns, GenConfig genConfig) throws IOException {
         // 拼接的路径：/tmpeladmin-gen-temp/，这个路径在Linux下需要root用户才有权限创建,非root用户会权限错误而失败，更改为： /tmp/eladmin-gen-temp/
         // String tempPath =SYS_TEM_DIR + "eladmin-gen-temp" + File.separator + genConfig.getTableName() + File.separator;
         String tempPath = FileUtil.SYS_TEM_DIR + "eladmin-gen-temp" + File.separator + genConfig.getTableName() + File.separator;
-        Map<String, Object> genMap = getGenMap(columns, genConfig);
+        Map<String, Object> genMap = getGenMap(group, columns, genConfig);
         TemplateEngine engine = TemplateUtil.createEngine(new TemplateConfig("template", TemplateConfig.ResourceMode.CLASSPATH));
         // 生成后端代码
         List<String> templates = getAdminTemplateNames();
@@ -142,8 +142,8 @@ public class GenUtil {
         return tempPath;
     }
 
-    public static void generatorCode(List<ColumnInfo> columnInfos, GenConfig genConfig) throws IOException {
-        Map<String, Object> genMap = getGenMap(columnInfos, genConfig);
+    public static void generatorCode(String group, List<ColumnInfo> columnInfos, GenConfig genConfig) throws IOException {
+        Map<String, Object> genMap = getGenMap(group, columnInfos, genConfig);
         TemplateEngine engine = TemplateUtil.createEngine(new TemplateConfig("template", TemplateConfig.ResourceMode.CLASSPATH));
         // 生成后端代码
         List<String> templates = getAdminTemplateNames();
@@ -182,9 +182,10 @@ public class GenUtil {
     }
 
     // 获取模版数据
-    private static Map<String, Object> getGenMap(List<ColumnInfo> columnInfos, GenConfig genConfig) {
+    private static Map<String, Object> getGenMap(String group, List<ColumnInfo> columnInfos, GenConfig genConfig) {
         // 存储模版字段数据
         Map<String, Object> genMap = new HashMap<>(16);
+        genMap.put("group", group);
         // 接口别名
         genMap.put("apiAlias", genConfig.getApiAlias());
         // 包名称

@@ -1,5 +1,8 @@
 package ${package}.domain.dto;
 
+<#if queryColumns??>
+import ${group}.annotation.Query;
+</#if>
 import lombok.Data;
 import io.swagger.annotations.ApiModelProperty;
 <#if queryHasTimestamp>
@@ -10,9 +13,6 @@ import java.math.BigDecimal;
 </#if>
 <#if betweens??>
 import java.util.List;
-</#if>
-<#if queryColumns??>
-import cn.woolsen.annotation.Query;
 </#if>
 
 /**
