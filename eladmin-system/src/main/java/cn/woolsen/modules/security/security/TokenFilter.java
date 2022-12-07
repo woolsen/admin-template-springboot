@@ -17,9 +17,9 @@ package cn.woolsen.modules.security.security;
 
 import cn.hutool.core.util.StrUtil;
 import cn.woolsen.modules.security.config.bean.SecurityProperties;
-import cn.woolsen.modules.security.domain.dto.service.OnlineUserService;
-import cn.woolsen.modules.security.domain.dto.service.UserCacheManager;
 import cn.woolsen.modules.security.domain.dto.OnlineUserDto;
+import cn.woolsen.modules.security.service.OnlineUserService;
+import cn.woolsen.modules.security.service.UserCacheManager;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +27,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;

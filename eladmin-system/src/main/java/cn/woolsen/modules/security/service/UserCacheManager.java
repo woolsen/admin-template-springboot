@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package cn.woolsen.modules.security.domain.dto.service;
+package cn.woolsen.modules.security.service;
 
 import cn.hutool.core.util.RandomUtil;
 import cn.woolsen.modules.security.config.bean.LoginProperties;
@@ -23,6 +23,7 @@ import cn.woolsen.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+
 import javax.annotation.Resource;
 
 /**

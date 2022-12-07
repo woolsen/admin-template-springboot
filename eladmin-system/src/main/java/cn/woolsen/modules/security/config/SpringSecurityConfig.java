@@ -15,16 +15,16 @@
  */
 package cn.woolsen.modules.security.config;
 
+import cn.woolsen.annotation.AnonymousAccess;
+import cn.woolsen.modules.security.config.bean.SecurityProperties;
 import cn.woolsen.modules.security.security.JwtAccessDeniedHandler;
 import cn.woolsen.modules.security.security.JwtAuthenticationEntryPoint;
 import cn.woolsen.modules.security.security.TokenConfigurer;
 import cn.woolsen.modules.security.security.TokenProvider;
-import lombok.RequiredArgsConstructor;
-import cn.woolsen.annotation.AnonymousAccess;
-import cn.woolsen.modules.security.config.bean.SecurityProperties;
-import cn.woolsen.modules.security.domain.dto.service.OnlineUserService;
-import cn.woolsen.modules.security.domain.dto.service.UserCacheManager;
+import cn.woolsen.modules.security.service.OnlineUserService;
+import cn.woolsen.modules.security.service.UserCacheManager;
 import cn.woolsen.utils.enums.RequestMethodEnum;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,6 +43,7 @@ import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
+
 import java.util.*;
 
 /**

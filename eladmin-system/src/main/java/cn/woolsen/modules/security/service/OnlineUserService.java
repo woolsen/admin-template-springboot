@@ -13,14 +13,14 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package cn.woolsen.modules.security.domain.dto.service;
+package cn.woolsen.modules.security.service;
 
 import cn.woolsen.base.PageDTO;
 import cn.woolsen.modules.security.config.bean.SecurityProperties;
+import cn.woolsen.modules.security.domain.dto.JwtUserDto;
 import cn.woolsen.modules.security.domain.dto.OnlineUserDto;
 import cn.woolsen.utils.*;
 import lombok.extern.slf4j.Slf4j;
-import cn.woolsen.modules.security.domain.dto.JwtUserDto;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
