@@ -15,11 +15,14 @@
  */
 package cn.woolsen.modules.security.config.bean;
 
+import cn.woolsen.exception.BadConfigurationException;
+import cn.woolsen.utils.StringUtils;
 import com.wf.captcha.*;
 import com.wf.captcha.base.Captcha;
 import lombok.Data;
-import cn.woolsen.exception.BadConfigurationException;
-import cn.woolsen.utils.StringUtils;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+
 import java.awt.*;
 import java.util.Objects;
 
@@ -30,6 +33,8 @@ import java.util.Objects;
  * @date loginCode.length0loginCode.length0/6/10 17:loginCode.length6
  */
 @Data
+@ConfigurationProperties(prefix = "login")
+@Configuration
 public class LoginProperties {
 
     /**
