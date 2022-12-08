@@ -1,24 +1,14 @@
-/*
- *  Copyright 2019-2020 Zheng Jie
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
 package cn.woolsen.utils;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.template.*;
+import cn.woolsen.annotation.Log;
+import cn.woolsen.annotation.Query;
+import cn.woolsen.base.BaseMapper;
+import cn.woolsen.base.PageDTO;
 import cn.woolsen.domain.ColumnInfo;
 import cn.woolsen.domain.GenConfig;
+import cn.woolsen.exception.EntityExistException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ObjectUtils;
 
@@ -27,7 +17,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 代码生成
@@ -39,13 +32,10 @@ import java.util.*;
 @SuppressWarnings({"unchecked", "all"})
 public class GenUtil {
 
-    private static final String TIMESTAMP = "Timestamp";
-
-    private static final String BIGDECIMAL = "BigDecimal";
-
     public static final String PK = "PRI";
-
     public static final String EXTRA = "auto_increment";
+    private static final String TIMESTAMP = "Timestamp";
+    private static final String BIGDECIMAL = "BigDecimal";
 
     /**
      * 获取后端代码模板名称
@@ -76,8 +66,8 @@ public class GenUtil {
         return templateNames;
     }
 
-    public static List<Map<String, Object>> preview(String group, List<ColumnInfo> columns, GenConfig genConfig) {
-        Map<String, Object> genMap = getGenMap(group, columns, genConfig);
+    public static List<Map<String, Object>> preview(List<ColumnInfo> columns, GenConfig genConfig) {
+        Map<String, Object> genMap = getGenMap(columns, genConfig);
         List<Map<String, Object>> genList = new ArrayList<>();
         // 获取后端模版
         List<String> templates = getAdminTemplateNames();
@@ -102,11 +92,11 @@ public class GenUtil {
         return genList;
     }
 
-    public static String download(String group, List<ColumnInfo> columns, GenConfig genConfig) throws IOException {
+    public static String download(List<ColumnInfo> columns, GenConfig genConfig) throws IOException {
         // 拼接的路径：/tmpeladmin-gen-temp/，这个路径在Linux下需要root用户才有权限创建,非root用户会权限错误而失败，更改为： /tmp/eladmin-gen-temp/
         // String tempPath =SYS_TEM_DIR + "eladmin-gen-temp" + File.separator + genConfig.getTableName() + File.separator;
         String tempPath = FileUtil.SYS_TEM_DIR + "eladmin-gen-temp" + File.separator + genConfig.getTableName() + File.separator;
-        Map<String, Object> genMap = getGenMap(group, columns, genConfig);
+        Map<String, Object> genMap = getGenMap(columns, genConfig);
         TemplateEngine engine = TemplateUtil.createEngine(new TemplateConfig("template", TemplateConfig.ResourceMode.CLASSPATH));
         // 生成后端代码
         List<String> templates = getAdminTemplateNames();
@@ -142,8 +132,8 @@ public class GenUtil {
         return tempPath;
     }
 
-    public static void generatorCode(String group, List<ColumnInfo> columnInfos, GenConfig genConfig) throws IOException {
-        Map<String, Object> genMap = getGenMap(group, columnInfos, genConfig);
+    public static void generatorCode(List<ColumnInfo> columnInfos, GenConfig genConfig) throws IOException {
+        Map<String, Object> genMap = getGenMap(columnInfos, genConfig);
         TemplateEngine engine = TemplateUtil.createEngine(new TemplateConfig("template", TemplateConfig.ResourceMode.CLASSPATH));
         // 生成后端代码
         List<String> templates = getAdminTemplateNames();
@@ -182,10 +172,19 @@ public class GenUtil {
     }
 
     // 获取模版数据
-    private static Map<String, Object> getGenMap(String group, List<ColumnInfo> columnInfos, GenConfig genConfig) {
+    private static Map<String, Object> getGenMap(List<ColumnInfo> columnInfos, GenConfig genConfig) {
         // 存储模版字段数据
         Map<String, Object> genMap = new HashMap<>(16);
-        genMap.put("group", group);
+        genMap.put("importLog", Log.class.getName());
+        genMap.put("importQuery", Query.class.getName());
+        genMap.put("importPageDTO", PageDTO.class.getName());
+        genMap.put("importBaseMapper", BaseMapper.class.getName());
+        genMap.put("importPageDTO", PageDTO.class.getName());
+        genMap.put("importValidationUtil", ValidationUtil.class.getName());
+        genMap.put("importFileUtil", FileUtil.class.getName());
+        genMap.put("importPageUtil", PageUtil.class.getName());
+        genMap.put("importQueryHelp", QueryHelp.class.getName());
+        genMap.put("importEntityExistException", EntityExistException.class.getName());
         // 接口别名
         genMap.put("apiAlias", genConfig.getApiAlias());
         // 包名称
@@ -274,7 +273,7 @@ public class GenUtil {
             // 主键存在字典
             if (StringUtils.isNotBlank(column.getDictName())) {
                 genMap.put("hasDict", true);
-                if(!dicts.contains(column.getDictName()))
+                if (!dicts.contains(column.getDictName()))
                     dicts.add(column.getDictName());
             }
 

@@ -15,10 +15,12 @@
  */
 package cn.woolsen.modules.system.domain.dto;
 
+import cn.woolsen.base.BaseDTO;
+import cn.woolsen.modules.security.domain.dto.AuthorityDto;
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Getter;
 import lombok.Setter;
-import cn.woolsen.base.BaseDTO;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -37,13 +39,17 @@ public class UserDto extends BaseDTO implements Serializable {
 
     private Set<JobSmallDto> jobs;
 
+    private Set<AuthorityDto> authorities;
+
+    private Set<Long> dataScopes;
+
     private DeptSmallDto dept;
 
     private Long deptId;
 
     private String username;
 
-    private String nickName;
+    private String nickname;
 
     private String email;
 

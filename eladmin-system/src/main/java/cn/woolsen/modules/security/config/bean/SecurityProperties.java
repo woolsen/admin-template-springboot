@@ -51,11 +51,6 @@ public class SecurityProperties {
     private Long tokenValidityInSeconds;
 
     /**
-     * 在线用户 key，根据 key 查询 redis 中在线用户的数据
-     */
-    private String onlineKey;
-
-    /**
      * 验证码 key
      */
     private String codeKey;

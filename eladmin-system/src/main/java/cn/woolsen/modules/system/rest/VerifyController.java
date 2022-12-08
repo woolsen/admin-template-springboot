@@ -15,17 +15,18 @@
  */
 package cn.woolsen.modules.system.rest;
 
-import cn.woolsen.domain.vo.EmailVo;
-import cn.woolsen.service.EmailService;
+import cn.woolsen.modules.system.service.VerifyService;
+import cn.woolsen.modules.tool.domain.vo.EmailVo;
+import cn.woolsen.modules.tool.service.EmailService;
 import cn.woolsen.utils.enums.CodeBiEnum;
 import cn.woolsen.utils.enums.CodeEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import cn.woolsen.modules.system.service.VerifyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.Objects;
 
 /**

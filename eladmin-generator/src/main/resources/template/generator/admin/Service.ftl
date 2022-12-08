@@ -1,20 +1,20 @@
 package ${package}.service;
 
-import ${group}.base.PageDTO;
 import ${package}.domain.${className};
 <#if columns??>
     <#list columns as column>
         <#if column.columnKey = 'UNI'>
             <#if column_index = 1>
-import ${group}.exception.EntityExistException;
+import ${importEntityExistException};
             </#if>
         </#if>
     </#list>
 </#if>
-import ${group}.utils.ValidationUtil;
-import ${group}.utils.FileUtil;
-import ${group}.utils.PageUtil;
-import ${group}.utils.QueryHelp;
+import ${importFileUtil};
+import ${importPageDTO};
+import ${importPageUtil};
+import ${importQueryHelp};
+import ${importValidationUtil};
 import lombok.RequiredArgsConstructor;
 import ${package}.repository.${className}Repository;
 import ${package}.domain.dto.${className}Dto;

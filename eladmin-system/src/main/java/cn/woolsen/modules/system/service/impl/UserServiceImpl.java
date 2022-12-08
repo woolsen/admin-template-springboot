@@ -127,7 +127,7 @@ public class UserServiceImpl implements UserService {
         }
         // 如果用户被禁用，则清除用户登录信息
         if(!resources.getEnabled()){
-            onlineUserService.kickOutForUsername(resources.getUsername());
+            onlineUserService.kickOutByUserId(resources.getId());
         }
         user.setUsername(resources.getUsername());
         user.setEmail(resources.getEmail());
@@ -136,7 +136,7 @@ public class UserServiceImpl implements UserService {
         user.setDept(resources.getDept());
         user.setJobs(resources.getJobs());
         user.setPhone(resources.getPhone());
-        user.setNickName(resources.getNickName());
+        user.setNickname(resources.getNickname());
         user.setGender(resources.getGender());
         userRepository.save(user);
         // 清除缓存
@@ -151,7 +151,7 @@ public class UserServiceImpl implements UserService {
         if (user1 != null && !user.getId().equals(user1.getId())) {
             throw new EntityExistException(User.class, "phone", resources.getPhone());
         }
-        user.setNickName(resources.getNickName());
+        user.setNickname(resources.getNickname());
         user.setPhone(resources.getPhone());
         user.setGender(resources.getGender());
         userRepository.save(user);
@@ -171,10 +171,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto findByName(String userName) {
-        User user = userRepository.findByUsername(userName);
+    public UserDto findByUsername(String username) {
+        User user = userRepository.findByUsername(username);
         if (user == null) {
-            throw new EntityNotFoundException(User.class, "name", userName);
+            throw new EntityNotFoundException(User.class, "name", username);
         } else {
             return userMapper.toDto(user);
         }

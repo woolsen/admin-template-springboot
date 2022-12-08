@@ -15,16 +15,18 @@
  */
 package cn.woolsen.modules.security.security;
 
-import cn.hutool.core.util.StrUtil;
 import cn.woolsen.modules.security.config.bean.SecurityProperties;
-import cn.woolsen.modules.security.domain.dto.OnlineUserDto;
+import cn.woolsen.modules.security.domain.dto.AuthorityDto;
 import cn.woolsen.modules.security.service.OnlineUserService;
-import cn.woolsen.modules.security.service.UserCacheManager;
-import io.jsonwebtoken.ExpiredJwtException;
+import cn.woolsen.modules.system.domain.dto.UserDto;
+import cn.woolsen.modules.system.service.RoleService;
+import cn.woolsen.modules.system.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
@@ -34,32 +36,23 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author /
  */
+@Component
+@RequiredArgsConstructor
 public class TokenFilter extends GenericFilterBean {
     private static final Logger log = LoggerFactory.getLogger(TokenFilter.class);
-
 
     private final TokenProvider tokenProvider;
     private final SecurityProperties properties;
     private final OnlineUserService onlineUserService;
-    private final UserCacheManager userCacheManager;
+    private final RoleService roleService;
+    private final UserService userService;
 
-    /**
-     * @param tokenProvider     Token
-     * @param properties        JWT
-     * @param onlineUserService 用户在线
-     * @param userCacheManager    用户缓存工具
-     */
-    public TokenFilter(TokenProvider tokenProvider, SecurityProperties properties, OnlineUserService onlineUserService, UserCacheManager userCacheManager) {
-        this.properties = properties;
-        this.onlineUserService = onlineUserService;
-        this.tokenProvider = tokenProvider;
-        this.userCacheManager = userCacheManager;
-    }
+//    private final UserCacheManager userCacheManager;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
@@ -67,25 +60,18 @@ public class TokenFilter extends GenericFilterBean {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         String token = resolveToken(httpServletRequest);
         // 对于 Token 为空的不需要去查 Redis
-        if (StrUtil.isNotBlank(token)) {
-            OnlineUserDto onlineUserDto = null;
-            boolean cleanUserCache = false;
-            try {
-                onlineUserDto = onlineUserService.getOne(properties.getOnlineKey() + token);
-            } catch (ExpiredJwtException e) {
-                log.error(e.getMessage());
-                cleanUserCache = true;
-            } finally {
-                if (cleanUserCache || Objects.isNull(onlineUserDto)) {
-                    userCacheManager.cleanUserCache(String.valueOf(tokenProvider.getClaims(token).get(TokenProvider.AUTHORITIES_KEY)));
-                }
-            }
-            if (onlineUserDto != null && StringUtils.hasText(token)) {
-                Authentication authentication = tokenProvider.getAuthentication(token);
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-                // Token 续期
-                tokenProvider.checkRenewal(token);
-            }
+        if (token == null) {
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
+        Long userId = onlineUserService.getUserIdByToken(token);
+        if (userId != null && StringUtils.hasText(token)) {
+            UserDto user = userService.findById(userId);
+            Set<AuthorityDto> authorities = roleService.mapToGrantedAuthorities(user);
+            Authentication authentication = new UserAuthenticationToken(user, token, authorities, true);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            // Token 续期
+            tokenProvider.checkRenewal(token);
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }

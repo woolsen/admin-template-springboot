@@ -20,12 +20,12 @@ import cn.hutool.extra.template.TemplateConfig;
 import cn.hutool.extra.template.TemplateEngine;
 import cn.hutool.extra.template.TemplateUtil;
 import cn.woolsen.config.thread.ThreadPoolExecutorUtil;
-import cn.woolsen.domain.vo.EmailVo;
 import cn.woolsen.modules.quartz.domain.QuartzJob;
 import cn.woolsen.modules.quartz.domain.QuartzLog;
 import cn.woolsen.modules.quartz.repository.QuartzLogRepository;
 import cn.woolsen.modules.quartz.service.QuartzJobService;
-import cn.woolsen.service.EmailService;
+import cn.woolsen.modules.tool.domain.vo.EmailVo;
+import cn.woolsen.modules.tool.service.EmailService;
 import cn.woolsen.utils.RedisUtils;
 import cn.woolsen.utils.SpringContextHolder;
 import cn.woolsen.utils.StringUtils;
@@ -34,8 +34,13 @@ import org.quartz.JobExecutionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.quartz.QuartzJobBean;
-import java.util.*;
-import java.util.concurrent.*;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 
 /**
  * 参考人人开源，https://gitee.com/renrenio/renren-security

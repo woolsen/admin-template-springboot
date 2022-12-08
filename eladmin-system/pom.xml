@@ -13,12 +13,19 @@
     <name>核心模块</name>
 
     <properties>
-        <jjwt.version>0.11.2</jjwt.version>
         <!-- oshi监控需要指定jna版本, 问题详见 https://github.com/oshi/oshi/issues/1040 -->
         <jna.version>5.8.0</jna.version>
+        <mail.version>1.4.7</mail.version>
+        <qiniu.version>7.9.3</qiniu.version>
+        <alipay.version>4.22.57.ALL</alipay.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>cn.woolsen</groupId>
+            <artifactId>eladmin-common</artifactId>
+            <version>2.6</version>
+        </dependency>
         <!-- 代码生成模块 -->
         <dependency>
             <groupId>cn.woolsen</groupId>
@@ -32,35 +39,11 @@
             </exclusions>
         </dependency>
 
-        <!-- tools 模块包含了 common 和 logging 模块 -->
-        <dependency>
-            <groupId>cn.woolsen</groupId>
-            <artifactId>eladmin-tools</artifactId>
-            <version>2.6</version>
-        </dependency>
-
         <!-- Spring boot websocket -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
-
-        <!-- jwt -->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-api</artifactId>
-            <version>${jjwt.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-impl</artifactId>
-            <version>${jjwt.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-jackson</artifactId>
-            <version>${jjwt.version}</version>
-        </dependency>
 
         <!-- quartz -->
         <dependency>
@@ -85,6 +68,27 @@
             <groupId>com.github.oshi</groupId>
             <artifactId>oshi-core</artifactId>
             <version>6.1.4</version>
+        </dependency>
+
+        <!--邮件依赖-->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>${mail.version}</version>
+        </dependency>
+
+        <!--七牛云存储-->
+        <dependency>
+            <groupId>com.qiniu</groupId>
+            <artifactId>qiniu-java-sdk</artifactId>
+            <version>${qiniu.version}</version>
+        </dependency>
+
+        <!--支付宝依赖-->
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>${alipay.version}</version>
         </dependency>
     </dependencies>
 

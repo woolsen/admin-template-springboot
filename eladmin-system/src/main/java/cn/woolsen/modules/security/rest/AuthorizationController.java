@@ -26,9 +26,11 @@ import cn.woolsen.modules.security.config.bean.LoginCodeEnum;
 import cn.woolsen.modules.security.config.bean.LoginProperties;
 import cn.woolsen.modules.security.config.bean.SecurityProperties;
 import cn.woolsen.modules.security.domain.dto.AuthUserDto;
-import cn.woolsen.modules.security.domain.dto.JwtUserDto;
+import cn.woolsen.modules.security.domain.dto.AuthorizationDto;
 import cn.woolsen.modules.security.security.TokenProvider;
+import cn.woolsen.modules.security.service.AuthorizationService;
 import cn.woolsen.modules.security.service.OnlineUserService;
+import cn.woolsen.modules.system.domain.dto.UserDto;
 import cn.woolsen.utils.RedisUtils;
 import cn.woolsen.utils.RsaUtils;
 import cn.woolsen.utils.SecurityUtils;
@@ -40,10 +42,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -71,14 +69,15 @@ public class AuthorizationController {
     private final RedisUtils redisUtils;
     private final OnlineUserService onlineUserService;
     private final TokenProvider tokenProvider;
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
+    private final AuthorizationService authorizationService;
     @Resource
     private LoginProperties loginProperties;
+
 
     @Log("用户登录")
     @ApiOperation("登录授权")
     @AnonymousPostMapping(value = "/login")
-    public ResponseEntity<Object> login(@Validated @RequestBody AuthUserDto authUser, HttpServletRequest request) throws Exception {
+    public AuthorizationDto login(@Validated @RequestBody AuthUserDto authUser, HttpServletRequest request) throws Exception {
         // 密码解密
         String password = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, authUser.getPassword());
         // 查询验证码
@@ -91,34 +90,13 @@ public class AuthorizationController {
         if (StringUtils.isBlank(authUser.getCode()) || !authUser.getCode().equalsIgnoreCase(code)) {
             throw new BadRequestException("验证码错误");
         }
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(authUser.getUsername(), password);
-        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        // 生成令牌与第三方系统获取令牌方式
-        // UserDetails userDetails = userDetailsService.loadUserByUsername(userInfo.getUsername());
-        // Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-        // SecurityContextHolder.getContext().setAuthentication(authentication);
-        String token = tokenProvider.createToken(authentication);
-        final JwtUserDto jwtUserDto = (JwtUserDto) authentication.getPrincipal();
-        // 保存在线信息
-        onlineUserService.save(jwtUserDto, token, request);
-        // 返回 token 与 用户信息
-        Map<String, Object> authInfo = new HashMap<String, Object>(2) {{
-            put("token", properties.getTokenStartWith() + token);
-            put("user", jwtUserDto);
-        }};
-        if (loginProperties.isSingleLogin()) {
-            //踢掉之前已经登录的token
-            onlineUserService.checkLoginOnUser(authUser.getUsername(), token);
-        }
-        return ResponseEntity.ok(authInfo);
+        return authorizationService.loginByUsername(authUser.getUsername(), password, request);
     }
 
     @ApiOperation("获取用户信息")
     @GetMapping(value = "/info")
-    public ResponseEntity<Object> getUserInfo() {
-        return ResponseEntity.ok(SecurityUtils.getCurrentUser());
+    public UserDto getUserInfo() {
+        return SecurityUtils.getCurrentUser();
     }
 
     @ApiOperation("获取验证码")
@@ -145,7 +123,7 @@ public class AuthorizationController {
     @ApiOperation("退出登录")
     @AnonymousDeleteMapping(value = "/logout")
     public ResponseEntity<Object> logout(HttpServletRequest request) {
-        onlineUserService.logout(tokenProvider.getToken(request));
+        onlineUserService.logoutByToken(tokenProvider.getToken(request));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

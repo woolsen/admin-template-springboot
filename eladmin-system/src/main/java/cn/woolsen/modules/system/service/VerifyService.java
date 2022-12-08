@@ -15,7 +15,7 @@
  */
 package cn.woolsen.modules.system.service;
 
-import cn.woolsen.domain.vo.EmailVo;
+import cn.woolsen.modules.tool.domain.vo.EmailVo;
 
 /**
  * @author Zheng Jie

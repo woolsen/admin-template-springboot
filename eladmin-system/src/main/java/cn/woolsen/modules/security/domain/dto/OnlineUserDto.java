@@ -15,9 +15,11 @@
  */
 package cn.woolsen.modules.security.domain.dto;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.util.Date;
 
 /**
@@ -28,6 +30,9 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OnlineUserDto {
+
+    @ApiModelProperty("用户ID")
+    private Long userId;
 
     /**
      * 用户名
@@ -60,9 +65,9 @@ public class OnlineUserDto {
     private String address;
 
     /**
-     * token
+     * 加密后的token
      */
-    private String key;
+    private String encryptedToken;
 
     /**
      * 登录时间

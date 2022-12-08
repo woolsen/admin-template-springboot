@@ -21,14 +21,15 @@ import cn.hutool.extra.template.Template;
 import cn.hutool.extra.template.TemplateConfig;
 import cn.hutool.extra.template.TemplateEngine;
 import cn.hutool.extra.template.TemplateUtil;
-import lombok.RequiredArgsConstructor;
-import cn.woolsen.domain.vo.EmailVo;
 import cn.woolsen.exception.BadRequestException;
 import cn.woolsen.modules.system.service.VerifyService;
+import cn.woolsen.modules.tool.domain.vo.EmailVo;
 import cn.woolsen.utils.RedisUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Collections;
 
 /**

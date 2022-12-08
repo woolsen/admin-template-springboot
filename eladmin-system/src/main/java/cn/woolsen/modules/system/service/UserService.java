@@ -22,6 +22,7 @@ import cn.woolsen.modules.system.domain.dto.UserLoginDto;
 import cn.woolsen.modules.system.domain.dto.UserQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
@@ -62,10 +63,10 @@ public interface UserService {
 
     /**
      * 根据用户名查询
-     * @param userName /
+     * @param username /
      * @return /
      */
-    UserDto findByName(String userName);
+    UserDto findByUsername(String username);
 
     /**
      * 根据用户名查询

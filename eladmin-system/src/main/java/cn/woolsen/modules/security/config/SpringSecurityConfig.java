@@ -1,28 +1,9 @@
-/*
- *  Copyright 2019-2020 Zheng Jie
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
 package cn.woolsen.modules.security.config;
 
 import cn.woolsen.annotation.AnonymousAccess;
-import cn.woolsen.modules.security.config.bean.SecurityProperties;
 import cn.woolsen.modules.security.security.JwtAccessDeniedHandler;
 import cn.woolsen.modules.security.security.JwtAuthenticationEntryPoint;
-import cn.woolsen.modules.security.security.TokenConfigurer;
-import cn.woolsen.modules.security.security.TokenProvider;
-import cn.woolsen.modules.security.service.OnlineUserService;
-import cn.woolsen.modules.security.service.UserCacheManager;
+import cn.woolsen.modules.security.security.TokenFilter;
 import cn.woolsen.utils.enums.RequestMethodEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
@@ -35,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -46,23 +28,18 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 import java.util.*;
 
-/**
- * @author Zheng Jie
- */
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final TokenProvider tokenProvider;
+    private final TokenFilter tokenFilter;
     private final CorsFilter corsFilter;
     private final JwtAuthenticationEntryPoint authenticationErrorHandler;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final ApplicationContext applicationContext;
-    private final SecurityProperties properties;
-    private final OnlineUserService onlineUserService;
-    private final UserCacheManager userCacheManager;
+
 
     @Bean
     GrantedAuthorityDefaults grantedAuthorityDefaults() {
@@ -138,11 +115,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(anonymousUrls.get(RequestMethodEnum.ALL.getType()).toArray(new String[0])).permitAll()
                 // 所有请求都需要认证
                 .anyRequest().authenticated()
-                .and().apply(securityConfigurerAdapter());
-    }
-
-    private TokenConfigurer securityConfigurerAdapter() {
-        return new TokenConfigurer(tokenProvider, properties, onlineUserService, userCacheManager);
+                .and()
+                .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     private Map<String, Set<String>> getAnonymousUrl(Map<RequestMappingInfo, HandlerMethod> handlerMethodMap) {
@@ -188,5 +162,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         anonymousUrls.put(RequestMethodEnum.DELETE.getType(), delete);
         anonymousUrls.put(RequestMethodEnum.ALL.getType(), all);
         return anonymousUrls;
+    }
+
+    @Bean("userDetailsService")
+    public UserDetailsService userDetailsService() {
+        return username -> null;
     }
 }

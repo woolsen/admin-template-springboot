@@ -17,12 +17,15 @@ package cn.woolsen.modules.security.service;
 
 import cn.woolsen.base.PageDTO;
 import cn.woolsen.modules.security.config.bean.SecurityProperties;
-import cn.woolsen.modules.security.domain.dto.JwtUserDto;
 import cn.woolsen.modules.security.domain.dto.OnlineUserDto;
+import cn.woolsen.modules.security.security.TokenProvider;
+import cn.woolsen.modules.system.domain.dto.UserDto;
 import cn.woolsen.utils.*;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
-import org.springframework.scheduling.annotation.Async;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,17 +37,13 @@ import java.util.*;
  * @author Zheng Jie
  * @date 2019年10月26日21:56:27
  */
+@RequiredArgsConstructor
 @Service
 @Slf4j
 public class OnlineUserService {
 
     private final SecurityProperties properties;
     private final RedisUtils redisUtils;
-
-    public OnlineUserService(SecurityProperties properties, RedisUtils redisUtils) {
-        this.properties = properties;
-        this.redisUtils = redisUtils;
-    }
 
     /**
      * 保存在线用户信息
@@ -53,18 +52,21 @@ public class OnlineUserService {
      * @param token      /
      * @param request    /
      */
-    public void save(JwtUserDto jwtUserDto, String token, HttpServletRequest request) {
-        String dept = jwtUserDto.getUser().getDept().getName();
+    public void save(UserDto user, String token, HttpServletRequest request) {
+        String dept = user.getDept().getName();
         String ip = StringUtils.getIp(request);
         String browser = StringUtils.getBrowser(request);
         String address = StringUtils.getCityInfo(ip);
         OnlineUserDto onlineUserDto = null;
         try {
-            onlineUserDto = new OnlineUserDto(jwtUserDto.getUsername(), jwtUserDto.getUser().getNickName(), dept, browser, ip, address, EncryptUtils.desEncrypt(token), new Date());
+            onlineUserDto = new OnlineUserDto(user.getId(), user.getUsername(), user.getNickname(), dept, browser, ip, address, EncryptUtils.desEncrypt(token), new Date());
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
-        redisUtils.set(properties.getOnlineKey() + token, onlineUserDto, properties.getTokenValidityInSeconds() / 1000);
+        Long userId = user.getId();
+        long expireInSec = properties.getTokenValidityInSeconds() / 1000;
+        redisUtils.set(TokenProvider.ONLINE_TOKEN_KEY + token, userId, expireInSec);
+        redisUtils.set(TokenProvider.ONLINE_USER_KEY + userId, onlineUserDto, expireInSec);
     }
 
     /**
@@ -89,7 +91,7 @@ public class OnlineUserService {
      * @return /
      */
     public List<OnlineUserDto> getAll(String filter) {
-        List<String> keys = redisUtils.scan(properties.getOnlineKey() + "*");
+        List<String> keys = redisUtils.scan(TokenProvider.ONLINE_USER_KEY + "*");
         Collections.reverse(keys);
         List<OnlineUserDto> onlineUserDtos = new ArrayList<>();
         for (String key : keys) {
@@ -106,14 +108,43 @@ public class OnlineUserService {
         return onlineUserDtos;
     }
 
+    public OnlineUserDto get(Long userId) {
+        return (OnlineUserDto) redisUtils.get(TokenProvider.ONLINE_USER_KEY + userId);
+    }
+
+    /**
+     * 通过Token获取用户ID
+     */
+    @Nullable
+    public Long getUserIdByToken(@NonNull String token) {
+        String key = TokenProvider.ONLINE_TOKEN_KEY + token;
+        return (Long) redisUtils.get(key);
+    }
+
     /**
      * 踢出用户
      *
-     * @param key /
+     * @param token /
      */
-    public void kickOut(String key) {
-        key = properties.getOnlineKey() + key;
+    public void kickOutByToken(String token) {
+        logoutByToken(token);
+    }
+
+    /**
+     * 踢出用户
+     *
+     * @param userId UserId
+     */
+    public void kickOutByUserId(Long userId) {
+        String key = TokenProvider.ONLINE_USER_KEY + userId;
+        OnlineUserDto onlineUserDto = (OnlineUserDto) redisUtils.get(key);
         redisUtils.del(key);
+        try {
+            String token = EncryptUtils.desDecrypt(onlineUserDto.getEncryptedToken());
+            redisUtils.del(TokenProvider.ONLINE_TOKEN_KEY + token);
+        } catch (Exception e) {
+            log.error("kickUser is error", e);
+        }
     }
 
     /**
@@ -121,9 +152,11 @@ public class OnlineUserService {
      *
      * @param token /
      */
-    public void logout(String token) {
-        String key = properties.getOnlineKey() + token;
+    public void logoutByToken(String token) {
+        String key = TokenProvider.ONLINE_TOKEN_KEY + token;
+        Long userId = (Long) redisUtils.get(key);
         redisUtils.del(key);
+        redisUtils.del(TokenProvider.ONLINE_USER_KEY + userId);
     }
 
     /**
@@ -151,52 +184,53 @@ public class OnlineUserService {
     /**
      * 查询用户
      *
-     * @param key /
+     * @param token /
      * @return /
      */
-    public OnlineUserDto getOne(String key) {
-        return (OnlineUserDto) redisUtils.get(key);
+    public OnlineUserDto getByToken(String token) {
+        String key = TokenProvider.ONLINE_TOKEN_KEY + token;
+        Long userId = (Long) redisUtils.get(key);
+        if (userId == null) {
+            return null;
+        }
+        return (OnlineUserDto) redisUtils.get(TokenProvider.ONLINE_USER_KEY + userId);
     }
 
     /**
      * 检测用户是否在之前已经登录，已经登录踢下线
      *
-     * @param userName 用户名
+     * @param userId 用户ID
      */
-    public void checkLoginOnUser(String userName, String igoreToken) {
-        List<OnlineUserDto> onlineUserDtos = getAll(userName);
-        if (onlineUserDtos == null || onlineUserDtos.isEmpty()) {
+    public void checkLoginOnUser(Long userId, String ignoreToken) {
+        OnlineUserDto onlineUserDto = get(userId);
+        if (onlineUserDto == null) {
             return;
         }
-        for (OnlineUserDto onlineUserDto : onlineUserDtos) {
-            if (onlineUserDto.getUserName().equals(userName)) {
-                try {
-                    String token = EncryptUtils.desDecrypt(onlineUserDto.getKey());
-                    if (StringUtils.isNotBlank(igoreToken) && !igoreToken.equals(token)) {
-                        this.kickOut(token);
-                    } else if (StringUtils.isBlank(igoreToken)) {
-                        this.kickOut(token);
-                    }
-                } catch (Exception e) {
-                    log.error("checkUser is error", e);
-                }
+        try {
+            String token = EncryptUtils.desDecrypt(onlineUserDto.getEncryptedToken());
+            if (StringUtils.isNotBlank(ignoreToken) && !ignoreToken.equals(token)) {
+                this.kickOutByToken(token);
+            } else if (StringUtils.isBlank(ignoreToken)) {
+                this.kickOutByToken(token);
             }
+        } catch (Exception e) {
+            log.error("checkUser is error", e);
         }
     }
 
-    /**
-     * 根据用户名强退用户
-     *
-     * @param username /
-     */
-    @Async
-    public void kickOutForUsername(String username) throws Exception {
-        List<OnlineUserDto> onlineUsers = getAll(username);
-        for (OnlineUserDto onlineUser : onlineUsers) {
-            if (onlineUser.getUserName().equals(username)) {
-                String token = EncryptUtils.desDecrypt(onlineUser.getKey());
-                kickOut(token);
-            }
-        }
-    }
+//    /**
+//     * 根据用户名强退用户
+//     *
+//     * @param username /
+//     */
+//    @Async
+//    public void kickOutForUsername(String username) throws Exception {
+//        List<OnlineUserDto> onlineUsers = getAll(username);
+//        for (OnlineUserDto onlineUser : onlineUsers) {
+//            if (onlineUser.getUserName().equals(username)) {
+//                String token = EncryptUtils.desDecrypt(onlineUser.getKey());
+//                kickOut(token);
+//            }
+//        }
+//    }
 }

@@ -72,7 +72,7 @@ public class User extends BaseEntity implements Serializable {
 
     @NotBlank
     @ApiModelProperty(value = "用户昵称")
-    private String nickName;
+    private String nickname;
 
     @Email
     @NotBlank

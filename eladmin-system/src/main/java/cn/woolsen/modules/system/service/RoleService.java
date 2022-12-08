@@ -18,11 +18,13 @@ package cn.woolsen.modules.system.service;
 import cn.woolsen.base.PageDTO;
 import cn.woolsen.modules.security.domain.dto.AuthorityDto;
 import cn.woolsen.modules.system.domain.Role;
+import cn.woolsen.modules.system.domain.User;
 import cn.woolsen.modules.system.domain.dto.RoleDto;
 import cn.woolsen.modules.system.domain.dto.RoleQueryCriteria;
 import cn.woolsen.modules.system.domain.dto.RoleSmallDto;
 import cn.woolsen.modules.system.domain.dto.UserDto;
 import org.springframework.data.domain.Pageable;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
@@ -120,7 +122,13 @@ public interface RoleService {
      * @param user 用户信息
      * @return 权限信息
      */
-    List<AuthorityDto> mapToGrantedAuthorities(UserDto user);
+    Set<AuthorityDto> mapToGrantedAuthorities(UserDto user);
+    /**
+     * 获取用户权限信息
+     * @param user 用户信息
+     * @return 权限信息
+     */
+    Set<AuthorityDto> mapToGrantedAuthorities(User user);
 
     /**
      * 验证是否被用户关联

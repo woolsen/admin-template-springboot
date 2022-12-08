@@ -18,13 +18,10 @@ package cn.woolsen.modules.security.rest;
 import cn.woolsen.base.PageDTO;
 import cn.woolsen.modules.security.domain.dto.OnlineUserDto;
 import cn.woolsen.modules.security.service.OnlineUserService;
-import cn.woolsen.utils.EncryptUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,8 +43,8 @@ public class OnlineController {
     @ApiOperation("查询在线用户")
     @GetMapping
     @PreAuthorize("@el.check()")
-    public ResponseEntity<PageDTO<OnlineUserDto>> queryOnlineUser(String filter, Pageable pageable) {
-        return new ResponseEntity<>(onlineUserService.getAll(filter, pageable), HttpStatus.OK);
+    public PageDTO<OnlineUserDto> queryOnlineUser(String filter, Pageable pageable) {
+        return onlineUserService.getAll(filter, pageable);
     }
 
     @ApiOperation("导出数据")
@@ -60,12 +57,9 @@ public class OnlineController {
     @ApiOperation("踢出用户")
     @DeleteMapping
     @PreAuthorize("@el.check()")
-    public ResponseEntity<Object> deleteOnlineUser(@RequestBody Set<String> keys) throws Exception {
-        for (String key : keys) {
-            // 解密Key
-            key = EncryptUtils.desDecrypt(key);
-            onlineUserService.kickOut(key);
+    public void deleteOnlineUser(@RequestBody Set<Long> userIds) {
+        for (Long userId : userIds) {
+            onlineUserService.kickOutByUserId(userId);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

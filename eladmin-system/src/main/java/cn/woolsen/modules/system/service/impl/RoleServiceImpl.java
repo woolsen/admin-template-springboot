@@ -165,21 +165,37 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    @Cacheable(key = "'auth:' + #p0.id")
-    public List<AuthorityDto> mapToGrantedAuthorities(UserDto user) {
+    public Set<AuthorityDto> mapToGrantedAuthorities(UserDto user) {
         Set<String> permissions = new HashSet<>();
         // 如果是管理员直接返回
         if (user.getIsAdmin()) {
             permissions.add("admin");
             return permissions.stream().map(AuthorityDto::new)
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toSet());
         }
-        Set<Role> roles = roleRepository.findByUserId(user.getId());
-        permissions = roles.stream().flatMap(role -> role.getMenus().stream())
+        return roleRepository.findByUserId(user.getId()).stream()
+                .flatMap(role -> role.getMenus().stream())
                 .map(Menu::getPermission)
-                .filter(StringUtils::isNotBlank).collect(Collectors.toSet());
-        return permissions.stream().map(AuthorityDto::new)
-                .collect(Collectors.toList());
+                .filter(StringUtils::isNotBlank)
+                .map(AuthorityDto::new)
+                .collect(Collectors.toSet());
+    }
+
+    @Override
+    public Set<AuthorityDto> mapToGrantedAuthorities(User user) {
+        Set<String> permissions = new HashSet<>();
+        // 如果是管理员直接返回
+        if (user.getIsAdmin()) {
+            permissions.add("admin");
+            return permissions.stream().map(AuthorityDto::new)
+                    .collect(Collectors.toSet());
+        }
+        return roleRepository.findByUserId(user.getId()).stream()
+                .flatMap(role -> role.getMenus().stream())
+                .map(Menu::getPermission)
+                .filter(StringUtils::isNotBlank)
+                .map(AuthorityDto::new)
+                .collect(Collectors.toSet());
     }
 
     @Override

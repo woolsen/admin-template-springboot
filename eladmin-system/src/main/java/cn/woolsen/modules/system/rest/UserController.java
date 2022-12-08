@@ -20,9 +20,13 @@ import cn.woolsen.annotation.Log;
 import cn.woolsen.base.PageDTO;
 import cn.woolsen.config.RsaProperties;
 import cn.woolsen.exception.BadRequestException;
+import cn.woolsen.modules.system.domain.Dept;
+import cn.woolsen.modules.system.domain.User;
 import cn.woolsen.modules.system.domain.dto.RoleSmallDto;
 import cn.woolsen.modules.system.domain.dto.UserDto;
 import cn.woolsen.modules.system.domain.dto.UserQueryCriteria;
+import cn.woolsen.modules.system.domain.vo.UserPassVo;
+import cn.woolsen.modules.system.service.*;
 import cn.woolsen.utils.PageUtil;
 import cn.woolsen.utils.RsaUtils;
 import cn.woolsen.utils.SecurityUtils;
@@ -30,14 +34,6 @@ import cn.woolsen.utils.enums.CodeEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import cn.woolsen.modules.system.domain.Dept;
-import cn.woolsen.modules.system.service.DataService;
-import cn.woolsen.modules.system.domain.User;
-import cn.woolsen.modules.system.domain.vo.UserPassVo;
-import cn.woolsen.modules.system.service.DeptService;
-import cn.woolsen.modules.system.service.RoleService;
-import cn.woolsen.modules.system.service.VerifyService;
-import cn.woolsen.modules.system.service.UserService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,7 +47,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -90,7 +88,7 @@ public class UserController {
             criteria.getDeptIds().addAll(deptService.getDeptChildren(data));
         }
         // 数据权限
-        List<Long> dataScopes = dataService.getDeptIds(userService.findByName(SecurityUtils.getCurrentUsername()));
+        Set<Long> dataScopes = dataService.getDeptIds(userService.findByUsername(SecurityUtils.getCurrentUsername()));
         // criteria.getDeptIds() 不为空并且数据权限不为空则取交集
         if (!CollectionUtils.isEmpty(criteria.getDeptIds()) && !CollectionUtils.isEmpty(dataScopes)) {
             // 取交集
@@ -160,7 +158,7 @@ public class UserController {
     public ResponseEntity<Object> updateUserPass(@RequestBody UserPassVo passVo) throws Exception {
         String oldPass = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, passVo.getOldPass());
         String newPass = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, passVo.getNewPass());
-        UserDto user = userService.findByName(SecurityUtils.getCurrentUsername());
+        UserDto user = userService.findByUsername(SecurityUtils.getCurrentUsername());
         if (!passwordEncoder.matches(oldPass, user.getPassword())) {
             throw new BadRequestException("修改失败，旧密码错误");
         }
@@ -182,7 +180,7 @@ public class UserController {
     @PostMapping(value = "/updateEmail/{code}")
     public ResponseEntity<Object> updateUserEmail(@PathVariable String code, @RequestBody User user) throws Exception {
         String password = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey, user.getPassword());
-        UserDto userDto = userService.findByName(SecurityUtils.getCurrentUsername());
+        UserDto userDto = userService.findByUsername(SecurityUtils.getCurrentUsername());
         if (!passwordEncoder.matches(password, userDto.getPassword())) {
             throw new BadRequestException("密码错误");
         }
