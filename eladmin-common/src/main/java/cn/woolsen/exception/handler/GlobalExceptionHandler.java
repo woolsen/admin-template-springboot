@@ -15,11 +15,11 @@
  */
 package cn.woolsen.exception.handler;
 
+import cn.woolsen.exception.BadRequestException;
 import cn.woolsen.exception.EntityExistException;
 import cn.woolsen.exception.EntityNotFoundException;
-import lombok.extern.slf4j.Slf4j;
-import cn.woolsen.exception.BadRequestException;
 import cn.woolsen.utils.ThrowableUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
@@ -27,7 +27,9 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import static org.springframework.http.HttpStatus.*;
+
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.valueOf;
 
 /**
  * @author Zheng Jie
@@ -41,7 +43,7 @@ public class GlobalExceptionHandler {
      * 处理所有不可知的异常
      */
     @ExceptionHandler(Throwable.class)
-    public ResponseEntity<ApiError> handleException(Throwable e){
+    public ResponseEntity<ApiError> handleException(Throwable e) {
         // 打印堆栈信息
         log.error(ThrowableUtil.getStackTrace(e));
         return buildResponseEntity(ApiError.error(e.getMessage()));
@@ -51,7 +53,7 @@ public class GlobalExceptionHandler {
      * BadCredentialsException
      */
     @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<ApiError> badCredentialsException(BadCredentialsException e){
+    public ResponseEntity<ApiError> badCredentialsException(BadCredentialsException e) {
         // 打印堆栈信息
         String message = "坏的凭证".equals(e.getMessage()) ? "用户名或密码不正确" : e.getMessage();
         log.error(message);
@@ -61,12 +63,12 @@ public class GlobalExceptionHandler {
     /**
      * 处理自定义异常
      */
-	@ExceptionHandler(value = BadRequestException.class)
-	public ResponseEntity<ApiError> badRequestException(BadRequestException e) {
+    @ExceptionHandler(value = BadRequestException.class)
+    public ResponseEntity<ApiError> badRequestException(BadRequestException e) {
         // 打印堆栈信息
-        log.error(ThrowableUtil.getStackTrace(e));
-        return buildResponseEntity(ApiError.error(e.getStatus(),e.getMessage()));
-	}
+        log.error(e.getClass().getName() + ": " + e.getMessage());
+        return buildResponseEntity(ApiError.error(e.getStatus(), e.getMessage()));
+    }
 
     /**
      * 处理 EntityExist
@@ -85,14 +87,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiError> entityNotFoundException(EntityNotFoundException e) {
         // 打印堆栈信息
         log.error(ThrowableUtil.getStackTrace(e));
-        return buildResponseEntity(ApiError.error(NOT_FOUND.value(),e.getMessage()));
+        return buildResponseEntity(ApiError.error(NOT_FOUND.value(), e.getMessage()));
     }
 
     /**
      * 处理所有接口数据验证异常
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiError> handleMethodArgumentNotValidException(MethodArgumentNotValidException e){
+    public ResponseEntity<ApiError> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         // 打印堆栈信息
         log.error(ThrowableUtil.getStackTrace(e));
         ObjectError objectError = e.getBindingResult().getAllErrors().get(0);
