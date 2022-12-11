@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package cn.woolsen.modules.tool.utils;
+package cn.woolsen.utils;
 
 /**
  * 支付状态

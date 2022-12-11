@@ -1,4 +1,4 @@
-package cn.woolsen.modules.generator.utils;
+package cn.woolsen.utils;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.template.*;
@@ -9,7 +9,6 @@ import cn.woolsen.base.PageDTO;
 import cn.woolsen.exception.EntityExistException;
 import cn.woolsen.modules.generator.domain.ColumnInfo;
 import cn.woolsen.modules.generator.domain.GenConfig;
-import cn.woolsen.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ObjectUtils;
 

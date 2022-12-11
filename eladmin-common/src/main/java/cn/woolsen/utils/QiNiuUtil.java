@@ -13,9 +13,8 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package cn.woolsen.modules.tool.utils;
+package cn.woolsen.utils;
 
-import cn.woolsen.utils.FileUtil;
 import com.qiniu.storage.Region;
 
 import java.text.SimpleDateFormat;

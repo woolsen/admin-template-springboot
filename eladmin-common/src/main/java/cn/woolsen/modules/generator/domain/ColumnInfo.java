@@ -15,7 +15,7 @@
  */
 package cn.woolsen.modules.generator.domain;
 
-import cn.woolsen.modules.generator.utils.GenUtil;
+import cn.woolsen.utils.GenUtil;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
