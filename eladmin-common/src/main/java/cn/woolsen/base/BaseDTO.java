@@ -1,8 +1,10 @@
 package cn.woolsen.base;
 
+import cn.woolsen.modules.system.domain.dto.UserSmallDto;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.sql.Timestamp;
@@ -15,9 +17,9 @@ import java.sql.Timestamp;
 @Setter
 public class BaseDTO  implements Serializable {
 
-    private String createBy;
+    private UserSmallDto createBy;
 
-    private String updateBy;
+    private UserSmallDto updateBy;
 
     private Timestamp createTime;
 

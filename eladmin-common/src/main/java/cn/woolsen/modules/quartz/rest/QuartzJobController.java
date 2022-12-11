@@ -1,26 +1,12 @@
-/*
- *  Copyright 2019-2020 Zheng Jie
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
 package cn.woolsen.modules.quartz.rest;
 
 import cn.woolsen.annotation.Log;
 import cn.woolsen.base.PageDTO;
 import cn.woolsen.exception.BadRequestException;
 import cn.woolsen.modules.quartz.domain.QuartzJob;
-import cn.woolsen.modules.quartz.domain.QuartzLog;
 import cn.woolsen.modules.quartz.domain.dto.JobQueryCriteria;
+import cn.woolsen.modules.quartz.domain.dto.QuartzJobDto;
+import cn.woolsen.modules.quartz.domain.dto.QuartzLogDto;
 import cn.woolsen.modules.quartz.service.QuartzJobService;
 import cn.woolsen.utils.SpringContextHolder;
 import io.swagger.annotations.Api;
@@ -38,10 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Set;
 
-/**
- * @author Zheng Jie
- * @date 2019-01-07
- */
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -55,7 +37,7 @@ public class QuartzJobController {
     @ApiOperation("查询定时任务")
     @GetMapping
     @PreAuthorize("@el.check('timing:list')")
-    public ResponseEntity<PageDTO<QuartzJob>> queryQuartzJob(JobQueryCriteria criteria, Pageable pageable) {
+    public ResponseEntity<PageDTO<QuartzJobDto>> queryQuartzJob(JobQueryCriteria criteria, Pageable pageable) {
         return new ResponseEntity<>(quartzJobService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
@@ -76,7 +58,7 @@ public class QuartzJobController {
     @ApiOperation("查询任务执行日志")
     @GetMapping(value = "/logs")
     @PreAuthorize("@el.check('timing:list')")
-    public ResponseEntity<PageDTO<QuartzLog>> queryQuartzJobLog(JobQueryCriteria criteria, Pageable pageable) {
+    public ResponseEntity<PageDTO<QuartzLogDto>> queryQuartzJobLog(JobQueryCriteria criteria, Pageable pageable) {
         return new ResponseEntity<>(quartzJobService.queryAllLog(criteria, pageable), HttpStatus.OK);
     }
 

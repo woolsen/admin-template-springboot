@@ -72,8 +72,8 @@ CREATE TABLE `mnt_app` (
   `port` int(255) DEFAULT NULL COMMENT '应用端口',
   `start_script` varchar(4000) DEFAULT NULL COMMENT '启动脚本',
   `deploy_script` varchar(4000) DEFAULT NULL COMMENT '部署脚本',
-  `create_by` varchar(255) DEFAULT NULL COMMENT '创建者',
-  `update_by` varchar(255) DEFAULT NULL COMMENT '更新者',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建者',
+  `update_by` bigint(20) DEFAULT NULL COMMENT '更新者',
   `create_time` datetime DEFAULT NULL COMMENT '创建日期',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`app_id`) USING BTREE
@@ -95,8 +95,8 @@ CREATE TABLE `mnt_database` (
   `jdbc_url` varchar(255) NOT NULL COMMENT 'jdbc连接',
   `user_name` varchar(255) NOT NULL COMMENT '账号',
   `pwd` varchar(255) NOT NULL COMMENT '密码',
-  `create_by` varchar(255) DEFAULT NULL COMMENT '创建者',
-  `update_by` varchar(255) DEFAULT NULL COMMENT '更新者',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建者',
+  `update_by` bigint(20) DEFAULT NULL COMMENT '更新者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`db_id`) USING BTREE
@@ -115,8 +115,8 @@ DROP TABLE IF EXISTS `mnt_deploy`;
 CREATE TABLE `mnt_deploy` (
   `deploy_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `app_id` bigint(20) DEFAULT NULL COMMENT '应用编号',
-  `create_by` varchar(255) DEFAULT NULL COMMENT '创建者',
-  `update_by` varchar(255) DEFAULT NULL COMMENT '更新者',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建者',
+  `update_by` bigint(20) DEFAULT NULL COMMENT '更新者',
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`deploy_id`) USING BTREE,
@@ -177,8 +177,8 @@ CREATE TABLE `mnt_server` (
   `name` varchar(100) DEFAULT NULL COMMENT '名称',
   `password` varchar(100) DEFAULT NULL COMMENT '密码',
   `port` int(11) DEFAULT NULL COMMENT '端口',
-  `create_by` varchar(255) DEFAULT NULL COMMENT '创建者',
-  `update_by` varchar(255) DEFAULT NULL COMMENT '更新者',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建者',
+  `update_by` bigint(20) DEFAULT NULL COMMENT '更新者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`server_id`) USING BTREE,
@@ -196,8 +196,8 @@ CREATE TABLE `sys_dept` (
   `name` varchar(255) NOT NULL COMMENT '名称',
   `dept_sort` int(5) DEFAULT 999 COMMENT '排序',
   `enabled` bit(1) NOT NULL COMMENT '状态',
-  `create_by` varchar(255) DEFAULT NULL COMMENT '创建者',
-  `update_by` varchar(255) DEFAULT NULL COMMENT '更新者',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建者',
+  `update_by` bigint(20) DEFAULT NULL COMMENT '更新者',
   `create_time` datetime DEFAULT NULL COMMENT '创建日期',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`dept_id`) USING BTREE,
@@ -209,13 +209,13 @@ CREATE TABLE `sys_dept` (
 -- Records of sys_dept
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_dept` VALUES (2, 7, 1, '研发部', 3, b'1', 'admin', 'admin', '2019-03-25 09:15:32', '2020-08-02 14:48:47');
-INSERT INTO `sys_dept` VALUES (5, 7, 0, '运维部', 4, b'1', 'admin', 'admin', '2019-03-25 09:20:44', '2020-05-17 14:27:27');
-INSERT INTO `sys_dept` VALUES (6, 8, 0, '测试部', 6, b'1', 'admin', 'admin', '2019-03-25 09:52:18', '2020-06-08 11:59:21');
-INSERT INTO `sys_dept` VALUES (7, NULL, 2, '华南分部', 0, b'1', 'admin', 'admin', '2019-03-25 11:04:50', '2020-06-08 12:08:56');
-INSERT INTO `sys_dept` VALUES (8, NULL, 2, '华北分部', 1, b'1', 'admin', 'admin', '2019-03-25 11:04:53', '2020-05-14 12:54:00');
-INSERT INTO `sys_dept` VALUES (15, 8, 0, 'UI部门', 7, b'1', 'admin', 'admin', '2020-05-13 22:56:53', '2020-05-14 12:54:13');
-INSERT INTO `sys_dept` VALUES (17, 2, 0, '研发一组', 999, b'1', 'admin', 'admin', '2020-08-02 14:49:07', '2020-08-02 14:49:07');
+INSERT INTO `sys_dept` VALUES (2, 7, 1, '研发部', 3, b'1', 1, 1, '2019-03-25 09:15:32', '2020-08-02 14:48:47');
+INSERT INTO `sys_dept` VALUES (5, 7, 0, '运维部', 4, b'1', 1, 1, '2019-03-25 09:20:44', '2020-05-17 14:27:27');
+INSERT INTO `sys_dept` VALUES (6, 8, 0, '测试部', 6, b'1', 1, 1, '2019-03-25 09:52:18', '2020-06-08 11:59:21');
+INSERT INTO `sys_dept` VALUES (7, NULL, 2, '华南分部', 0, b'1', 1, 1, '2019-03-25 11:04:50', '2020-06-08 12:08:56');
+INSERT INTO `sys_dept` VALUES (8, NULL, 2, '华北分部', 1, b'1', 1, 1, '2019-03-25 11:04:53', '2020-05-14 12:54:00');
+INSERT INTO `sys_dept` VALUES (15, 8, 0, 'UI部门', 7, b'1', 1, 1, '2020-05-13 22:56:53', '2020-05-14 12:54:13');
+INSERT INTO `sys_dept` VALUES (17, 2, 0, '研发一组', 999, b'1', 1, 1, '2020-08-02 14:49:07', '2020-08-02 14:49:07');
 COMMIT;
 
 -- ----------------------------
@@ -226,8 +226,8 @@ CREATE TABLE `sys_dict` (
   `dict_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `name` varchar(255) NOT NULL COMMENT '字典名称',
   `description` varchar(255) DEFAULT NULL COMMENT '描述',
-  `create_by` varchar(255) DEFAULT NULL COMMENT '创建者',
-  `update_by` varchar(255) DEFAULT NULL COMMENT '更新者',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建者',
+  `update_by` bigint(20) DEFAULT NULL COMMENT '更新者',
   `create_time` datetime DEFAULT NULL COMMENT '创建日期',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`dict_id`) USING BTREE
@@ -252,8 +252,8 @@ CREATE TABLE `sys_dict_detail` (
   `label` varchar(255) NOT NULL COMMENT '字典标签',
   `value` varchar(255) NOT NULL COMMENT '字典值',
   `dict_sort` int(5) DEFAULT NULL COMMENT '排序',
-  `create_by` varchar(255) DEFAULT NULL COMMENT '创建者',
-  `update_by` varchar(255) DEFAULT NULL COMMENT '更新者',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建者',
+  `update_by` bigint(20) DEFAULT NULL COMMENT '更新者',
   `create_time` datetime DEFAULT NULL COMMENT '创建日期',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`detail_id`) USING BTREE,
@@ -281,8 +281,8 @@ CREATE TABLE `sys_job` (
   `name` varchar(255) NOT NULL COMMENT '岗位名称',
   `enabled` bit(1) NOT NULL COMMENT '岗位状态',
   `job_sort` int(5) DEFAULT NULL COMMENT '排序',
-  `create_by` varchar(255) DEFAULT NULL COMMENT '创建者',
-  `update_by` varchar(255) DEFAULT NULL COMMENT '更新者',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建者',
+  `update_by` bigint(20) DEFAULT NULL COMMENT '更新者',
   `create_time` datetime DEFAULT NULL COMMENT '创建日期',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`job_id`) USING BTREE,
@@ -296,8 +296,8 @@ CREATE TABLE `sys_job` (
 BEGIN;
 INSERT INTO `sys_job` VALUES (8, '人事专员', b'1', 3, NULL, NULL, '2019-03-29 14:52:28', NULL);
 INSERT INTO `sys_job` VALUES (10, '产品经理', b'1', 4, NULL, NULL, '2019-03-29 14:55:51', NULL);
-INSERT INTO `sys_job` VALUES (11, '全栈开发', b'1', 2, NULL, 'admin', '2019-03-31 13:39:30', '2020-05-05 11:33:43');
-INSERT INTO `sys_job` VALUES (12, '软件测试', b'1', 5, NULL, 'admin', '2019-03-31 13:39:43', '2020-05-10 19:56:26');
+INSERT INTO `sys_job` VALUES (11, '全栈开发', b'1', 2, NULL, 1, '2019-03-31 13:39:30', '2020-05-05 11:33:43');
+INSERT INTO `sys_job` VALUES (12, '软件测试', b'1', 5, NULL, 1, '2019-03-31 13:39:43', '2020-05-10 19:56:26');
 COMMIT;
 
 -- ----------------------------
@@ -315,7 +315,7 @@ CREATE TABLE `sys_log` (
   `username` varchar(255) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
   `browser` varchar(255) DEFAULT NULL,
-  `exception_detail` text DEFAULT NULL,
+  `exception_detail` longtext DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`log_id`) USING BTREE,
   KEY `log_create_time_index` (`create_time`),
@@ -341,8 +341,8 @@ CREATE TABLE `sys_menu` (
   `cache` bit(1) DEFAULT b'0' COMMENT '缓存',
   `hidden` bit(1) DEFAULT b'0' COMMENT '隐藏',
   `permission` varchar(255) DEFAULT NULL COMMENT '权限',
-  `create_by` varchar(255) DEFAULT NULL COMMENT '创建者',
-  `update_by` varchar(255) DEFAULT NULL COMMENT '更新者',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建者',
+  `update_by` bigint(20) DEFAULT NULL COMMENT '更新者',
   `create_time` datetime DEFAULT NULL COMMENT '创建日期',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`menu_id`) USING BTREE,
@@ -360,7 +360,7 @@ INSERT INTO `sys_menu` VALUES (2, 1, 3, 1, '用户管理', 'User', 'system/user/
 INSERT INTO `sys_menu` VALUES (3, 1, 3, 1, '角色管理', 'Role', 'system/role/index', 3, 'role', 'role', b'0', b'0', b'0', 'roles:list', NULL, NULL, '2018-12-18 15:16:07', NULL);
 INSERT INTO `sys_menu` VALUES (5, 1, 3, 1, '菜单管理', 'Menu', 'system/menu/index', 5, 'menu', 'menu', b'0', b'0', b'0', 'menu:list', NULL, NULL, '2018-12-18 15:17:28', NULL);
 INSERT INTO `sys_menu` VALUES (6, NULL, 5, 0, '系统监控', NULL, NULL, 10, 'monitor', 'monitor', b'0', b'0', b'0', NULL, NULL, NULL, '2018-12-18 15:17:48', NULL);
-INSERT INTO `sys_menu` VALUES (7, 6, 0, 1, '操作日志', 'Log', 'monitor/log/index', 11, 'log', 'logs', b'0', b'1', b'0', NULL, NULL, 'admin', '2018-12-18 15:18:26', '2020-06-06 13:11:57');
+INSERT INTO `sys_menu` VALUES (7, 6, 0, 1, '操作日志', 'Log', 'monitor/log/index', 11, 'log', 'logs', b'0', b'1', b'0', NULL, NULL, 1, '2018-12-18 15:18:26', '2020-06-06 13:11:57');
 INSERT INTO `sys_menu` VALUES (9, 6, 0, 1, 'SQL监控', 'Sql', 'monitor/sql/index', 18, 'sqlMonitor', 'druid', b'0', b'0', b'0', NULL, NULL, NULL, '2018-12-18 15:19:34', NULL);
 INSERT INTO `sys_menu` VALUES (10, NULL, 5, 0, '组件管理', NULL, NULL, 50, 'zujian', 'components', b'0', b'0', b'0', NULL, NULL, NULL, '2018-12-19 13:38:16', NULL);
 INSERT INTO `sys_menu` VALUES (11, 10, 0, 1, '图标库', 'Icons', 'components/icons/index', 51, 'icon', 'icon', b'0', b'0', b'0', NULL, NULL, NULL, '2018-12-19 13:38:49', NULL);
@@ -368,8 +368,8 @@ INSERT INTO `sys_menu` VALUES (14, 36, 0, 1, '邮件工具', 'Email', 'tools/ema
 INSERT INTO `sys_menu` VALUES (15, 10, 0, 1, '富文本', 'Editor', 'components/Editor', 52, 'fwb', 'tinymce', b'0', b'0', b'0', NULL, NULL, NULL, '2018-12-27 11:58:25', NULL);
 INSERT INTO `sys_menu` VALUES (18, 36, 3, 1, '存储管理', 'Storage', 'tools/storage/index', 34, 'qiniu', 'storage', b'0', b'0', b'0', 'storage:list', NULL, NULL, '2018-12-31 11:12:15', NULL);
 INSERT INTO `sys_menu` VALUES (19, 36, 0, 1, '支付宝工具', 'AliPay', 'tools/aliPay/index', 37, 'alipay', 'aliPay', b'0', b'0', b'0', NULL, NULL, NULL, '2018-12-31 14:52:38', NULL);
-INSERT INTO `sys_menu` VALUES (21, NULL, 2, 0, '多级菜单', NULL, '', 900, 'menu', 'nested', b'0', b'0', b'0', NULL, NULL, 'admin', '2019-01-04 16:22:03', '2020-06-21 17:27:35');
-INSERT INTO `sys_menu` VALUES (22, 21, 2, 0, '二级菜单1', NULL, '', 999, 'menu', 'menu1', b'0', b'0', b'0', NULL, NULL, 'admin', '2019-01-04 16:23:29', '2020-06-21 17:27:20');
+INSERT INTO `sys_menu` VALUES (21, NULL, 2, 0, '多级菜单', NULL, '', 900, 'menu', 'nested', b'0', b'0', b'0', NULL, NULL, 1, '2019-01-04 16:22:03', '2020-06-21 17:27:35');
+INSERT INTO `sys_menu` VALUES (22, 21, 2, 0, '二级菜单1', NULL, '', 999, 'menu', 'menu1', b'0', b'0', b'0', NULL, NULL, 1, '2019-01-04 16:23:29', '2020-06-21 17:27:20');
 INSERT INTO `sys_menu` VALUES (23, 21, 0, 1, '二级菜单2', NULL, 'nested/menu2/index', 999, 'menu', 'menu2', b'0', b'0', b'0', NULL, NULL, NULL, '2019-01-04 16:23:57', NULL);
 INSERT INTO `sys_menu` VALUES (24, 22, 0, 1, '三级菜单1', 'Test', 'nested/menu1/menu1-1', 999, 'menu', 'menu1-1', b'0', b'0', b'0', NULL, NULL, NULL, '2019-01-04 16:24:48', NULL);
 INSERT INTO `sys_menu` VALUES (27, 22, 0, 1, '三级菜单2', NULL, 'nested/menu1/menu1-2', 999, 'menu', 'menu1-2', b'0', b'0', b'0', NULL, NULL, NULL, '2019-01-07 17:27:32', NULL);
@@ -408,7 +408,7 @@ INSERT INTO `sys_menu` VALUES (75, 28, 0, 2, '任务删除', NULL, '', 4, '', ''
 INSERT INTO `sys_menu` VALUES (77, 18, 0, 2, '上传文件', NULL, '', 2, '', '', b'0', b'0', b'0', 'storage:add', NULL, NULL, '2019-10-29 13:09:09', NULL);
 INSERT INTO `sys_menu` VALUES (78, 18, 0, 2, '文件编辑', NULL, '', 3, '', '', b'0', b'0', b'0', 'storage:edit', NULL, NULL, '2019-10-29 13:09:22', NULL);
 INSERT INTO `sys_menu` VALUES (79, 18, 0, 2, '文件删除', NULL, '', 4, '', '', b'0', b'0', b'0', 'storage:del', NULL, NULL, '2019-10-29 13:09:34', NULL);
-INSERT INTO `sys_menu` VALUES (80, 6, 0, 1, '服务监控', 'ServerMonitor', 'monitor/server/index', 14, 'codeConsole', 'server', b'0', b'0', b'0', 'monitor:list', NULL, 'admin', '2019-11-07 13:06:39', '2020-05-04 18:20:50');
+INSERT INTO `sys_menu` VALUES (80, 6, 0, 1, '服务监控', 'ServerMonitor', 'monitor/server/index', 14, 'codeConsole', 'server', b'0', b'0', b'0', 'monitor:list', NULL, 1, '2019-11-07 13:06:39', '2020-05-04 18:20:50');
 INSERT INTO `sys_menu` VALUES (82, 36, 0, 1, '生成配置', 'GeneratorConfig', 'generator/config', 33, 'dev', 'generator/config/:tableName', b'0', b'1', b'1', '', NULL, NULL, '2019-11-17 20:08:56', NULL);
 INSERT INTO `sys_menu` VALUES (83, 10, 0, 1, '图表库', 'Echarts', 'components/Echarts', 50, 'chart', 'echarts', b'0', b'1', b'0', '', NULL, NULL, '2019-11-21 09:04:32', NULL);
 INSERT INTO `sys_menu` VALUES (90, NULL, 5, 1, '运维管理', 'Mnt', '', 20, 'mnt', 'mnt', b'0', b'0', b'0', NULL, NULL, NULL, '2019-11-09 10:31:08', NULL);
@@ -450,8 +450,8 @@ CREATE TABLE `sys_quartz_job` (
   `email` varchar(100) DEFAULT NULL COMMENT '报警邮箱',
   `sub_task` varchar(100) DEFAULT NULL COMMENT '子任务ID',
   `pause_after_failure` bit(1) DEFAULT NULL COMMENT '任务失败后是否暂停',
-  `create_by` varchar(255) DEFAULT NULL COMMENT '创建者',
-  `update_by` varchar(255) DEFAULT NULL COMMENT '更新者',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建者',
+  `update_by` bigint(20) DEFAULT NULL COMMENT '更新者',
   `create_time` datetime DEFAULT NULL COMMENT '创建日期',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`job_id`) USING BTREE,
@@ -462,10 +462,10 @@ CREATE TABLE `sys_quartz_job` (
 -- Records of sys_quartz_job
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_quartz_job` VALUES (2, 'testTask', '0/5 * * * * ?', b'1', '测试1', 'run1', 'test', '带参测试，多参使用json', '测试', NULL, NULL, NULL, NULL, 'admin', '2019-08-22 14:08:29', '2020-05-24 13:58:33');
-INSERT INTO `sys_quartz_job` VALUES (3, 'testTask', '0/5 * * * * ?', b'1', '测试', 'run', '', '不带参测试', 'Zheng Jie', '', '5,6', b'1', NULL, 'admin', '2019-09-26 16:44:39', '2020-05-24 14:48:12');
-INSERT INTO `sys_quartz_job` VALUES (5, 'Test', '0/5 * * * * ?', b'1', '任务告警测试', 'run', NULL, '测试', 'test', '', NULL, b'1', 'admin', 'admin', '2020-05-05 20:32:41', '2020-05-05 20:36:13');
-INSERT INTO `sys_quartz_job` VALUES (6, 'testTask', '0/5 * * * * ?', b'1', '测试3', 'run2', NULL, '测试3', 'Zheng Jie', '', NULL, b'1', 'admin', 'admin', '2020-05-05 20:35:41', '2020-05-05 20:36:07');
+INSERT INTO `sys_quartz_job` VALUES (2, 'testTask', '0/5 * * * * ?', b'1', '测试1', 'run1', 'test', '带参测试，多参使用json', '测试', NULL, NULL, NULL, NULL, 1, '2019-08-22 14:08:29', '2020-05-24 13:58:33');
+INSERT INTO `sys_quartz_job` VALUES (3, 'testTask', '0/5 * * * * ?', b'1', '测试', 'run', '', '不带参测试', 'Zheng Jie', '', '5,6', b'1', NULL, 1, '2019-09-26 16:44:39', '2020-05-24 14:48:12');
+INSERT INTO `sys_quartz_job` VALUES (5, 'Test', '0/5 * * * * ?', b'1', '任务告警测试', 'run', NULL, '测试', 'test', '', NULL, b'1', 1, 1, '2020-05-05 20:32:41', '2020-05-05 20:36:13');
+INSERT INTO `sys_quartz_job` VALUES (6, 'testTask', '0/5 * * * * ?', b'1', '测试3', 'run2', NULL, '测试3', 'Zheng Jie', '', NULL, b'1', 1, 1, '2020-05-05 20:35:41', '2020-05-05 20:36:07');
 COMMIT;
 
 -- ----------------------------
@@ -496,8 +496,8 @@ CREATE TABLE `sys_role` (
   `level` int(255) DEFAULT NULL COMMENT '角色级别',
   `description` varchar(255) DEFAULT NULL COMMENT '描述',
   `data_scope` varchar(255) DEFAULT NULL COMMENT '数据权限',
-  `create_by` varchar(255) DEFAULT NULL COMMENT '创建者',
-  `update_by` varchar(255) DEFAULT NULL COMMENT '更新者',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建者',
+  `update_by` bigint(20) DEFAULT NULL COMMENT '更新者',
   `create_time` datetime DEFAULT NULL COMMENT '创建日期',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`role_id`) USING BTREE,
@@ -509,8 +509,8 @@ CREATE TABLE `sys_role` (
 -- Records of sys_role
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_role` VALUES (1, '超级管理员', 1, '-', '全部', NULL, 'admin', '2018-11-23 11:04:37', '2020-08-06 16:10:24');
-INSERT INTO `sys_role` VALUES (2, '普通用户', 2, '-', '本级', NULL, 'admin', '2018-11-23 13:09:06', '2020-09-05 10:45:12');
+INSERT INTO `sys_role` VALUES (1, '超级管理员', 1, '-', '全部', NULL, 1, '2018-11-23 11:04:37', '2020-08-06 16:10:24');
+INSERT INTO `sys_role` VALUES (2, '普通用户', 2, '-', '本级', NULL, 1, '2018-11-23 13:09:06', '2020-09-05 10:45:12');
 COMMIT;
 
 -- ----------------------------
@@ -649,7 +649,7 @@ CREATE TABLE `sys_user` (
   `user_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `dept_id` bigint(20) DEFAULT NULL COMMENT '部门名称',
   `username` varchar(255) DEFAULT NULL COMMENT '用户名',
-  `nick_name` varchar(255) DEFAULT NULL COMMENT '昵称',
+  `nickname` varchar(255) DEFAULT NULL COMMENT '昵称',
   `gender` varchar(2) DEFAULT NULL COMMENT '性别',
   `phone` varchar(255) DEFAULT NULL COMMENT '手机号码',
   `email` varchar(255) DEFAULT NULL COMMENT '邮箱',
@@ -658,8 +658,8 @@ CREATE TABLE `sys_user` (
   `password` varchar(255) DEFAULT NULL COMMENT '密码',
   `is_admin` bit(1) DEFAULT b'0' COMMENT '是否为admin账号',
   `enabled` bigint(20) DEFAULT NULL COMMENT '状态：1启用、0禁用',
-  `create_by` varchar(255) DEFAULT NULL COMMENT '创建者',
-  `update_by` varchar(255) DEFAULT NULL COMMENT '更新者',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建者',
+  `update_by` bigint(20) DEFAULT NULL COMMENT '更新者',
   `pwd_reset_time` datetime DEFAULT NULL COMMENT '修改密码的时间',
   `create_time` datetime DEFAULT NULL COMMENT '创建日期',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
@@ -677,8 +677,9 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES (1, 2, 'admin', '管理员', '男', '18888888888', '201507802@qq.com', 'avatar-20200806032259161.png', '/Users/jie/Documents/work/me/admin/eladmin/~/avatar/avatar-20200806032259161.png', '$2a$10$Egp1/gvFlt7zhlXVfEFw4OfWQCGPw0ClmMcc6FjTnvXNRVf9zdMRa', b'1', 1, NULL, 'admin', '2020-05-03 16:38:31', '2018-08-23 09:11:56', '2020-09-05 10:43:31');
-INSERT INTO `sys_user` VALUES (2, 2, 'test', '测试', '男', '19999999999', '231@qq.com', NULL, NULL, '$2a$10$4XcyudOYTSz6fue6KFNMHeUQnCX5jbBQypLEnGk1PmekXt5c95JcK', b'0', 1, 'admin', 'admin', NULL, '2020-05-05 11:15:49', '2020-09-05 10:43:38');
+INSERT INTO `sys_user` VALUES (1, 2, 'system', '系统', '男', '18888888888', '123456@qq.com', NULL, NULL, '', b'1', 1, 1, 1, '2020-05-03 16:38:31', '2018-08-23 09:11:56', '2020-09-05 10:43:31');
+INSERT INTO `sys_user` VALUES (2, 2, 'admin', '管理员', '男', '18888888888', '201507802@qq.com', 'avatar-20200806032259161.png', '/Users/jie/Documents/work/me/admin/eladmin/~/avatar/avatar-20200806032259161.png', '$2a$10$Egp1/gvFlt7zhlXVfEFw4OfWQCGPw0ClmMcc6FjTnvXNRVf9zdMRa', b'1', 1, 1, 1, '2020-05-03 16:38:31', '2018-08-23 09:11:56', '2020-09-05 10:43:31');
+INSERT INTO `sys_user` VALUES (3, 2, 'test', '测试', '男', '19999999999', '231@qq.com', NULL, NULL, '$2a$10$4XcyudOYTSz6fue6KFNMHeUQnCX5jbBQypLEnGk1PmekXt5c95JcK', b'0', 1, 1, 1, NULL, '2020-05-05 11:15:49', '2020-09-05 10:43:38');
 COMMIT;
 
 -- ----------------------------
@@ -714,8 +715,8 @@ CREATE TABLE `sys_users_roles` (
 -- Records of sys_users_roles
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_users_roles` VALUES (1, 1);
-INSERT INTO `sys_users_roles` VALUES (2, 2);
+INSERT INTO `sys_users_roles` VALUES (2, 1);
+INSERT INTO `sys_users_roles` VALUES (3, 2);
 COMMIT;
 
 -- ----------------------------
@@ -770,8 +771,8 @@ CREATE TABLE `tool_local_storage` (
   `path` varchar(255) DEFAULT NULL COMMENT '路径',
   `type` varchar(255) DEFAULT NULL COMMENT '类型',
   `size` varchar(100) DEFAULT NULL COMMENT '大小',
-  `create_by` varchar(255) DEFAULT NULL COMMENT '创建者',
-  `update_by` varchar(255) DEFAULT NULL COMMENT '更新者',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建者',
+  `update_by` bigint(20) DEFAULT NULL COMMENT '更新者',
   `create_time` datetime DEFAULT NULL COMMENT '创建日期',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`storage_id`) USING BTREE

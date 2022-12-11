@@ -17,8 +17,9 @@ package cn.woolsen.modules.quartz.service;
 
 import cn.woolsen.base.PageDTO;
 import cn.woolsen.modules.quartz.domain.QuartzJob;
-import cn.woolsen.modules.quartz.domain.QuartzLog;
 import cn.woolsen.modules.quartz.domain.dto.JobQueryCriteria;
+import cn.woolsen.modules.quartz.domain.dto.QuartzJobDto;
+import cn.woolsen.modules.quartz.domain.dto.QuartzLogDto;
 import org.springframework.data.domain.Pageable;
 
 import javax.servlet.http.HttpServletResponse;
@@ -38,14 +39,14 @@ public interface QuartzJobService {
      * @param pageable 分页参数
      * @return /
      */
-    PageDTO<QuartzJob> queryAll(JobQueryCriteria criteria, Pageable pageable);
+    PageDTO<QuartzJobDto> queryAll(JobQueryCriteria criteria, Pageable pageable);
 
     /**
      * 查询全部
      * @param criteria 条件
      * @return /
      */
-    List<QuartzJob> queryAll(JobQueryCriteria criteria);
+    List<QuartzJobDto> queryAll(JobQueryCriteria criteria);
 
     /**
      * 分页查询日志
@@ -53,14 +54,14 @@ public interface QuartzJobService {
      * @param pageable 分页参数
      * @return /
      */
-    PageDTO<QuartzLog> queryAllLog(JobQueryCriteria criteria, Pageable pageable);
+    PageDTO<QuartzLogDto> queryAllLog(JobQueryCriteria criteria, Pageable pageable);
 
     /**
      * 查询全部
      * @param criteria 条件
      * @return /
      */
-    List<QuartzLog> queryAllLog(JobQueryCriteria criteria);
+    List<QuartzLogDto> queryAllLog(JobQueryCriteria criteria);
 
     /**
      * 创建
@@ -105,7 +106,7 @@ public interface QuartzJobService {
      * @param response /
      * @throws IOException /
      */
-    void download(List<QuartzJob> queryAll, HttpServletResponse response) throws IOException;
+    void download(List<QuartzJobDto> queryAll, HttpServletResponse response) throws IOException;
 
     /**
      * 导出定时任务日志
@@ -113,7 +114,7 @@ public interface QuartzJobService {
      * @param response /
      * @throws IOException /
      */
-    void downloadLog(List<QuartzLog> queryAllLog, HttpServletResponse response) throws IOException;
+    void downloadLog(List<QuartzLogDto> queryAllLog, HttpServletResponse response) throws IOException;
 
     /**
      * 执行子任务

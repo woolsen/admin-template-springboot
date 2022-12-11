@@ -16,6 +16,7 @@
 package cn.woolsen.base;
 
 import cn.woolsen.modules.system.domain.User;
+import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -42,12 +43,14 @@ import java.sql.Timestamp;
 @EntityListeners(AuditingEntityListener.class)
 public class BaseEntity implements Serializable {
 
+    @JSONField(serialize = false)
     @CreatedBy
     @OneToOne
     @ApiModelProperty(value = "创建人", hidden = true)
     @JoinColumn(name = "create_by", updatable = false)
     private User createBy;
 
+    @JSONField(serialize = false)
     @LastModifiedBy
     @OneToOne
     @ApiModelProperty(value = "更新人", hidden = true)

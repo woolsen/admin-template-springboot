@@ -22,12 +22,17 @@ import cn.woolsen.exception.BadRequestException;
 import cn.woolsen.modules.quartz.domain.QuartzJob;
 import cn.woolsen.modules.quartz.domain.QuartzLog;
 import cn.woolsen.modules.quartz.domain.dto.JobQueryCriteria;
+import cn.woolsen.modules.quartz.domain.dto.QuartzJobDto;
+import cn.woolsen.modules.quartz.domain.dto.QuartzLogDto;
 import cn.woolsen.modules.quartz.repository.QuartzJobRepository;
 import cn.woolsen.modules.quartz.repository.QuartzLogRepository;
 import cn.woolsen.modules.quartz.service.QuartzJobService;
+import cn.woolsen.modules.quartz.service.mapstruct.QuartzJobMapper;
+import cn.woolsen.modules.quartz.service.mapstruct.QuartzLogMapper;
 import cn.woolsen.utils.*;
 import lombok.RequiredArgsConstructor;
 import org.quartz.CronExpression;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -49,25 +54,31 @@ public class QuartzJobServiceImpl implements QuartzJobService {
     private final QuartzLogRepository quartzLogRepository;
     private final QuartzManage quartzManage;
     private final RedisUtils redisUtils;
+    private final QuartzJobMapper quartzJobMapper;
+    private final QuartzLogMapper quartzLobMapper;
 
     @Override
-    public PageDTO<QuartzJob> queryAll(JobQueryCriteria criteria, Pageable pageable) {
-        return PageUtil.toPage(quartzJobRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder), pageable));
+    public PageDTO<QuartzJobDto> queryAll(JobQueryCriteria criteria, Pageable pageable) {
+        final Page<QuartzJob> page = quartzJobRepository.findAll((root, criteriaQuery, criteriaBuilder) ->
+                QueryHelp.getPredicate(root, criteria, criteriaBuilder), pageable
+        );
+        return PageUtil.toPage(page.map(quartzJobMapper::toDto));
     }
 
     @Override
-    public PageDTO<QuartzLog> queryAllLog(JobQueryCriteria criteria, Pageable pageable) {
-        return PageUtil.toPage(quartzLogRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder), pageable));
+    public PageDTO<QuartzLogDto> queryAllLog(JobQueryCriteria criteria, Pageable pageable) {
+        final Page<QuartzLog> page = quartzLogRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder), pageable);
+        return PageUtil.toPage(page.map(quartzLobMapper::toDto));
     }
 
     @Override
-    public List<QuartzJob> queryAll(JobQueryCriteria criteria) {
-        return quartzJobRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder));
+    public List<QuartzJobDto> queryAll(JobQueryCriteria criteria) {
+        return quartzJobMapper.toDto(quartzJobRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder)));
     }
 
     @Override
-    public List<QuartzLog> queryAllLog(JobQueryCriteria criteria) {
-        return quartzLogRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder));
+    public List<QuartzLogDto> queryAllLog(JobQueryCriteria criteria) {
+        return quartzLobMapper.toDto(quartzLogRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder)));
     }
 
     @Override
@@ -160,9 +171,9 @@ public class QuartzJobServiceImpl implements QuartzJobService {
     }
 
     @Override
-    public void download(List<QuartzJob> quartzJobs, HttpServletResponse response) throws IOException {
+    public void download(List<QuartzJobDto> quartzJobs, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
-        for (QuartzJob quartzJob : quartzJobs) {
+        for (QuartzJobDto quartzJob : quartzJobs) {
             Map<String, Object> map = new LinkedHashMap<>();
             map.put("任务名称", quartzJob.getJobName());
             map.put("Bean名称", quartzJob.getBeanName());
@@ -178,9 +189,9 @@ public class QuartzJobServiceImpl implements QuartzJobService {
     }
 
     @Override
-    public void downloadLog(List<QuartzLog> queryAllLog, HttpServletResponse response) throws IOException {
+    public void downloadLog(List<QuartzLogDto> queryAllLog, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
-        for (QuartzLog quartzLog : queryAllLog) {
+        for (QuartzLogDto quartzLog : queryAllLog) {
             Map<String, Object> map = new LinkedHashMap<>();
             map.put("任务名称", quartzLog.getJobName());
             map.put("Bean名称", quartzLog.getBeanName());
