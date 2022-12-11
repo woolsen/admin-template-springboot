@@ -11,7 +11,6 @@
 
     <modules>
         <module>eladmin-common</module>
-        <module>eladmin-generator</module>
         <module>eladmin-system</module>
     </modules>
 
