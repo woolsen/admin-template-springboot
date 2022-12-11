@@ -1,9 +1,9 @@
 package cn.woolsen.modules.security.service;
 
+import cn.woolsen.config.config.bean.LoginProperties;
+import cn.woolsen.config.config.bean.SecurityProperties;
 import cn.woolsen.exception.BadRequestException;
 import cn.woolsen.exception.EntityNotFoundException;
-import cn.woolsen.modules.security.config.bean.LoginProperties;
-import cn.woolsen.modules.security.config.bean.SecurityProperties;
 import cn.woolsen.modules.security.domain.dto.AuthorityDto;
 import cn.woolsen.modules.security.domain.dto.AuthorizationDto;
 import cn.woolsen.modules.security.security.TokenProvider;

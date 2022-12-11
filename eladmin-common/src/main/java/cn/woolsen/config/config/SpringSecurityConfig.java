@@ -1,4 +1,4 @@
-package cn.woolsen.modules.security.config;
+package cn.woolsen.config.config;
 
 import cn.woolsen.annotation.AnonymousAccess;
 import cn.woolsen.modules.security.security.JwtAccessDeniedHandler;

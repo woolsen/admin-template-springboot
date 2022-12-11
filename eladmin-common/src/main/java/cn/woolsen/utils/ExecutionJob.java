@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package cn.woolsen.modules.quartz.utils;
+package cn.woolsen.utils;
 
 import cn.hutool.extra.template.Template;
 import cn.hutool.extra.template.TemplateConfig;
@@ -26,10 +26,6 @@ import cn.woolsen.modules.quartz.repository.QuartzLogRepository;
 import cn.woolsen.modules.quartz.service.QuartzJobService;
 import cn.woolsen.modules.tool.domain.vo.EmailVo;
 import cn.woolsen.modules.tool.service.EmailService;
-import cn.woolsen.utils.RedisUtils;
-import cn.woolsen.utils.SpringContextHolder;
-import cn.woolsen.utils.StringUtils;
-import cn.woolsen.utils.ThrowableUtil;
 import org.quartz.JobExecutionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -13,11 +13,11 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package cn.woolsen.modules.quartz.config;
+package cn.woolsen.config;
 
 import cn.woolsen.modules.quartz.domain.QuartzJob;
 import cn.woolsen.modules.quartz.repository.QuartzJobRepository;
-import cn.woolsen.modules.quartz.utils.QuartzManage;
+import cn.woolsen.utils.QuartzManage;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package cn.woolsen.modules.security.config;
+package cn.woolsen.config.config;
 
 import cn.woolsen.utils.SecurityUtils;
 import org.springframework.security.core.GrantedAuthority;

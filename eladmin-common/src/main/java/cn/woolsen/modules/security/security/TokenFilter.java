@@ -15,7 +15,7 @@
  */
 package cn.woolsen.modules.security.security;
 
-import cn.woolsen.modules.security.config.bean.SecurityProperties;
+import cn.woolsen.config.config.bean.SecurityProperties;
 import cn.woolsen.modules.security.domain.dto.AuthorityDto;
 import cn.woolsen.modules.security.service.OnlineUserService;
 import cn.woolsen.modules.system.domain.dto.UserDto;

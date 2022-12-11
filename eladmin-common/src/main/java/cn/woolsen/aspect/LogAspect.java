@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package cn.woolsen.modules.logging.aspect;
+package cn.woolsen.aspect;
 
 import cn.woolsen.modules.logging.domain.Log;
 import cn.woolsen.modules.logging.service.LogService;

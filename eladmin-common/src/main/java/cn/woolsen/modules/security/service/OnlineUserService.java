@@ -16,7 +16,7 @@
 package cn.woolsen.modules.security.service;
 
 import cn.woolsen.base.PageDTO;
-import cn.woolsen.modules.security.config.bean.SecurityProperties;
+import cn.woolsen.config.config.bean.SecurityProperties;
 import cn.woolsen.modules.security.domain.dto.OnlineUserDto;
 import cn.woolsen.modules.security.security.TokenProvider;
 import cn.woolsen.modules.system.domain.dto.UserDto;

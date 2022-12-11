@@ -18,7 +18,7 @@ package cn.woolsen.modules.security.security;
 import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
-import cn.woolsen.modules.security.config.bean.SecurityProperties;
+import cn.woolsen.config.config.bean.SecurityProperties;
 import cn.woolsen.utils.RedisUtils;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;

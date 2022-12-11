@@ -15,6 +15,7 @@
  */
 package cn.woolsen.base;
 
+import cn.woolsen.modules.system.domain.User;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,9 +25,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import javax.persistence.Column;
-import javax.persistence.EntityListeners;
-import javax.persistence.MappedSuperclass;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.sql.Timestamp;
@@ -43,14 +43,16 @@ import java.sql.Timestamp;
 public class BaseEntity implements Serializable {
 
     @CreatedBy
-    @Column(name = "create_by", updatable = false)
+    @OneToOne
     @ApiModelProperty(value = "创建人", hidden = true)
-    private String createBy;
+    @JoinColumn(name = "create_by", updatable = false)
+    private User createBy;
 
     @LastModifiedBy
-    @Column(name = "update_by")
+    @OneToOne
     @ApiModelProperty(value = "更新人", hidden = true)
-    private String updateBy;
+    @JoinColumn(name = "update_by")
+    private User updateBy;
 
     @CreationTimestamp
     @Column(name = "create_time", updatable = false)

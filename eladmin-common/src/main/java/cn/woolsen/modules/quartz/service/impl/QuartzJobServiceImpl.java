@@ -25,7 +25,6 @@ import cn.woolsen.modules.quartz.domain.dto.JobQueryCriteria;
 import cn.woolsen.modules.quartz.repository.QuartzJobRepository;
 import cn.woolsen.modules.quartz.repository.QuartzLogRepository;
 import cn.woolsen.modules.quartz.service.QuartzJobService;
-import cn.woolsen.modules.quartz.utils.QuartzManage;
 import cn.woolsen.utils.*;
 import lombok.RequiredArgsConstructor;
 import org.quartz.CronExpression;

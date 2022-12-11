@@ -16,7 +16,7 @@
 package cn.woolsen.modules.security.service;
 
 import cn.hutool.core.util.RandomUtil;
-import cn.woolsen.modules.security.config.bean.LoginProperties;
+import cn.woolsen.config.config.bean.LoginProperties;
 import cn.woolsen.modules.security.domain.dto.JwtUserDto;
 import cn.woolsen.utils.RedisUtils;
 import cn.woolsen.utils.StringUtils;

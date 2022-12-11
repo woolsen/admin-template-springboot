@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.woolsen.modules.security.config.bean;
+package cn.woolsen.config.config.bean;
 
 import cn.woolsen.exception.BadConfigurationException;
 import cn.woolsen.utils.StringUtils;

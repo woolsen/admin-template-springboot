@@ -1,4 +1,4 @@
-package cn.woolsen.modules.security.config;
+package cn.woolsen.config.config;
 
 import cn.woolsen.utils.SecurityUtils;
 import org.springframework.data.domain.AuditorAware;
