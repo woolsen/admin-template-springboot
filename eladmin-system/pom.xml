@@ -12,14 +12,6 @@
     <artifactId>eladmin-system</artifactId>
     <name>系统模块</name>
 
-    <properties>
-        <!-- oshi监控需要指定jna版本, 问题详见 https://github.com/oshi/oshi/issues/1040 -->
-        <jna.version>5.8.0</jna.version>
-        <mail.version>1.4.7</mail.version>
-        <qiniu.version>7.9.3</qiniu.version>
-        <alipay.version>4.22.57.ALL</alipay.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>cn.woolsen</groupId>
